@@ -4,7 +4,7 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import VkProvider from "next-auth/providers/vk";
+import EmailProvider from "next-auth/providers/email";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
@@ -13,8 +13,6 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
     } & DefaultSession["user"];
   }
 }
@@ -31,9 +29,16 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   providers: [
-    VkProvider({
-      clientId: env.VK_CLIENT_ID,
-      clientSecret: env.VK_CLIENT_SECRET,
+    EmailProvider({
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: env.EMAIL_SERVER_PORT,
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
     }),
   ],
 };
