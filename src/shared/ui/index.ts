@@ -11,3 +11,6 @@ export * from "./toast";
 export * from "./toaster";
 export * from "./form";
 export * from "./dropdown-menu";
+export * from "./container";
+export * from "./logo";
+export * from "./sheet";
