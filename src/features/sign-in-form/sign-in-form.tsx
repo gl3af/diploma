@@ -35,7 +35,7 @@ export const SignInForm = () => {
 
     const result = await signIn("email", {
       email,
-      callbackUrl: `${window.location.origin}`,
+      callbackUrl: `${window.location.origin}/dashboard`,
       redirect: false,
     });
 
