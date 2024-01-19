@@ -16,7 +16,12 @@ import Link from "next/link";
 export const SignInDialog = ({ session }: { session: Session | null }) => {
   if (!!session)
     return (
-      <Button variant="outline" size="lg" className="text-lg" asChild>
+      <Button
+        variant="outline"
+        size="lg"
+        className="rounded-xl text-lg"
+        asChild
+      >
         <Link href="/dashboard">Войти</Link>
       </Button>
     );
@@ -24,7 +29,7 @@ export const SignInDialog = ({ session }: { session: Session | null }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="text-lg">
+        <Button variant="outline" size="lg" className="rounded-xl text-lg">
           Войти
         </Button>
       </DialogTrigger>
