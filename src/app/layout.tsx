@@ -4,10 +4,11 @@ import { Montserrat } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { cn } from "@/shared/utils";
+import { Toaster } from "@/shared/ui";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
-  variable: "--font-sans",
 });
 
 export const metadata = {
@@ -23,10 +24,16 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${montserrat.className}`}>
+      <body
+        className={cn(
+          "min-h-screen bg-background antialiased",
+          montserrat.className,
+        )}
+      >
         <TRPCReactProvider cookies={cookies().toString()}>
           {children}
         </TRPCReactProvider>
+        <Toaster />
       </body>
     </html>
   );
