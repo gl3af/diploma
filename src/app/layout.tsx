@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import { cn } from "@/shared/utils";
 import { Toaster } from "@/shared/ui";
+import { ThemeProvider } from "@/providers";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
@@ -31,7 +32,14 @@ export default async function RootLayout({
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </TRPCReactProvider>
         <Toaster />
       </body>
