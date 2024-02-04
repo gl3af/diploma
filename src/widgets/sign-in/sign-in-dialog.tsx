@@ -22,7 +22,7 @@ export const SignInDialog = ({ session }: { session: Session | null }) => {
         className="rounded-xl text-lg"
         asChild
       >
-        <Link href="/dashboard">Войти</Link>
+        <Link href="/home">Войти</Link>
       </Button>
     );
 
