@@ -14,3 +14,4 @@ export * from "./dropdown-menu";
 export * from "./container";
 export * from "./logo";
 export * from "./sheet";
+export * from "./tabs";

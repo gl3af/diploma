@@ -5,7 +5,7 @@ export const Logo = () => {
   return (
     <Link className="flex items-center gap-4 hover:opacity-80" href="/">
       <Plane />
-      <span className="hidden text-3xl font-bold sm:inline">Название</span>
+      <span className="hidden text-3xl font-bold sm:inline">Предприятие</span>
     </Link>
   );
 };

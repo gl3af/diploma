@@ -18,7 +18,7 @@ export const Content = async ({
   if (!session && requiresAuth) redirect("/");
 
   return (
-    <main className="flex w-full flex-col gap-8  p-6">
+    <main className="flex w-full flex-col gap-8 p-6">
       <div className="flex items-center gap-4">
         {icon}
         <h1 className="text-2xl font-bold leading-normal lg:text-3xl">

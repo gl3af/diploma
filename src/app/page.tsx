@@ -1,4 +1,4 @@
-import { SignInDialog } from "@/widgets/sign-in";
+import { AuthDialog } from "@/widgets/auth";
 import { getServerAuthSession } from "@/server/auth";
 
 export default async function Home() {
@@ -9,7 +9,7 @@ export default async function Home() {
       <h1 className="text-5xl font-bold">
         {session ? "Привет Диплом (auth)" : "Привет Диплом"}
       </h1>
-      <SignInDialog session={session} />
+      <AuthDialog session={session} />
     </main>
   );
 }
