@@ -13,9 +13,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: "My Fitness Journey",
-  description:
-    "Построй свое будущее вместе с фитнес-платформой My Fitness Journey",
+  title: "Название",
+  description: "Портал молодых специалистов",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

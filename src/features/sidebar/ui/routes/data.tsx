@@ -1,51 +1,33 @@
-import {
-  LayoutDashboard,
-  Apple,
-  Book,
-  Dumbbell,
-  Calculator,
-  BarChart,
-  Bike,
-} from "lucide-react";
+import { Book, Home, Settings, CalendarDays, Info } from "lucide-react";
 import { type Route } from "../route";
 
 type Routes = Route[];
 
 const routes: Routes = [
   {
-    href: "/dashboard",
-    label: "Доска",
-    icon: <LayoutDashboard />,
+    href: "/home",
+    label: "Главная",
+    icon: <Home />,
   },
   {
-    href: "/exercise-bank",
-    label: "Банк упражнений",
-    icon: <Dumbbell />,
+    href: "/information",
+    label: "Информация",
+    icon: <Info />,
   },
   {
-    href: "/training-plans",
-    label: "Тренировочные планы",
+    href: "/courses",
+    label: "Курсы",
     icon: <Book />,
   },
   {
-    href: "/nutrition",
-    label: "Дневник питания",
-    icon: <Apple />,
+    href: "/schedule",
+    label: "Расписание",
+    icon: <CalendarDays />,
   },
   {
-    href: "/training",
-    label: "Дневник тренировок",
-    icon: <Bike />,
-  },
-  {
-    href: "/one-rep-max-calculator",
-    label: "1RM Калькулятор",
-    icon: <Calculator />,
-  },
-  {
-    href: "/stats",
-    label: "Статистика",
-    icon: <BarChart />,
+    href: "/settings",
+    label: "Настройки",
+    icon: <Settings />,
   },
 ];
 
