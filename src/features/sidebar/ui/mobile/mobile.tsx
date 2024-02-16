@@ -17,7 +17,7 @@ export const MobileSidebar = () => {
           <Menu size={30} />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex w-[85%] flex-col gap-6">
+      <SheetContent side="left" className="flex w-full flex-col gap-6 py-12">
         <SheetHeader className="pl-3">
           <Logo />
         </SheetHeader>

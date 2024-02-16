@@ -12,9 +12,9 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "0.5rem",
+      padding: "0.25rem",
       screens: {
-        "2xl": "1440px",
+        "2xl": "1600px",
       },
     },
     extend: {
@@ -71,6 +71,9 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      screens: {
+        xs: "425px",
       },
     },
   },

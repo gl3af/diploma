@@ -1,5 +1,5 @@
 import routes from "./data";
-import { Route } from "../";
+import { Route } from "../route";
 
 export const Routes = ({
   displayLabels = false,

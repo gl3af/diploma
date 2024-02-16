@@ -1,5 +1,5 @@
+import { ThemeToggle } from "@/features/theme-toggle";
 import { Container, Logo } from "@/shared/ui";
-import { Socials } from "@/features/footer";
 
 export const Footer = () => {
   return (
@@ -7,7 +7,7 @@ export const Footer = () => {
       <Container>
         <div className="flex items-center justify-between px-6">
           <Logo />
-          <Socials />
+          <ThemeToggle />
         </div>
       </Container>
     </footer>
