@@ -5,15 +5,15 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { cn } from "@/shared/utils";
-import { Toaster } from "@/shared/ui";
-import { ThemeProvider } from "@/providers";
+import { Box, Toaster } from "@/shared/ui";
+import { SessionProvider, ThemeProvider } from "@/providers";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
 });
 
 export const metadata = {
-  title: "Название",
+  title: "КАЗ им. Горбунова",
   description: "Портал молодых специалистов",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -24,8 +24,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
+    <Box as="html" lang="en">
+      <Box
+        as="body"
         className={cn(
           "min-h-screen bg-background antialiased",
           montserrat.className,
@@ -38,11 +39,11 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <SessionProvider>{children}</SessionProvider>
           </ThemeProvider>
         </TRPCReactProvider>
         <Toaster />
-      </body>
-    </html>
+      </Box>
+    </Box>
   );
 }

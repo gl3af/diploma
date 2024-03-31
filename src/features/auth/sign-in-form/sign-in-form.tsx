@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import {
+  Box,
   Button,
   Form,
   FormControl,
@@ -55,7 +56,7 @@ export const SignInForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -110,7 +111,7 @@ export const SignInForm = () => {
         <Button type="submit" className="w-full text-white sm:w-fit">
           Войти
         </Button>
-      </form>
+      </Box>
     </Form>
   );
 };

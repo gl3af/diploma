@@ -36,8 +36,7 @@ export const SignUpForm = () => {
     await mutateAsync(
       { email, password },
       {
-        onError: () =>
-          form.setError("email", { message: "Пользователь уже существует" }),
+        onError: (e) => form.setError("email", { message: e.message }),
         onSuccess: (data) => {
           toast({
             title: "Успешно",

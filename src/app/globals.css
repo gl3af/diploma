@@ -53,7 +53,20 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  ol {
+    @apply ml-4 list-decimal;
+  }
+
+  ul {
+    @apply ml-4 list-disc;
+  }
+
+  li {
+    @apply ml-4 pl-2;
   }
 }

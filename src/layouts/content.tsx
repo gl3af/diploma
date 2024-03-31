@@ -1,4 +1,5 @@
 import { getServerAuthSession } from "@/server/auth";
+import { Box, Title } from "@/shared/ui";
 import { redirect } from "next/navigation";
 
 type ContentProps = {
@@ -16,16 +17,20 @@ export const Content = async ({
 }: ContentProps) => {
   const session = await getServerAuthSession();
   if (!session && requiresAuth) redirect("/");
+  if (session?.user.role === "admin") redirect("/admin");
 
   return (
-    <main className="flex w-full flex-col gap-8 p-6">
-      <div className="flex items-center gap-4">
+    <Box as="main" className="flex w-full flex-col gap-8 p-6">
+      <Box className="flex items-center gap-4">
         {icon}
-        <h1 className="text-2xl font-bold leading-normal lg:text-3xl">
+        <Title
+          order={1}
+          className="text-2xl font-bold leading-normal lg:text-3xl"
+        >
           {title}
-        </h1>
-      </div>
-      <div className="h-full rounded-xl bg-secondary p-6">{children}</div>
-    </main>
+        </Title>
+      </Box>
+      <Box className="h-full rounded-xl bg-secondary p-6">{children}</Box>
+    </Box>
   );
 };

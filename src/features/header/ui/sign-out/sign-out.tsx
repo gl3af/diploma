@@ -13,7 +13,7 @@ export const SignOut = () => {
       title="Выход"
       onClick={() =>
         signOut({
-          callbackUrl: window.location.origin,
+          callbackUrl: "/",
         })
       }
     >

@@ -1,15 +1,15 @@
 import { ThemeToggle } from "@/features/theme-toggle";
-import { Container, Logo } from "@/shared/ui";
+import { Box, Container, Logo } from "@/shared/ui";
 
 export const Footer = () => {
   return (
-    <footer className="py-6">
+    <Box as="footer" className="py-6">
       <Container>
-        <div className="flex items-center justify-between px-6">
+        <Box className="flex items-center justify-between px-6">
           <Logo />
           <ThemeToggle />
-        </div>
+        </Box>
       </Container>
-    </footer>
+    </Box>
   );
 };

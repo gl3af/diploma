@@ -27,9 +27,7 @@ export const env = createEnv({
     SALT: z.string(),
   },
 
-  client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
-  },
+  client: {},
 
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
