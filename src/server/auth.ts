@@ -1,46 +1,88 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import {
-  getServerSession,
-  type DefaultSession,
-  type NextAuthOptions,
-} from "next-auth";
-import EmailProvider from "next-auth/providers/email";
+import { getServerSession, type NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
+import { type DefaultSession } from "next-auth";
 
 declare module "next-auth" {
-  interface Session extends DefaultSession {
+  interface User {
+    role: "admin" | "user";
+  }
+  interface Session {
     user: {
       id: string;
+      role: "admin" | "user";
     } & DefaultSession["user"];
+  }
+
+  interface JWT {
+    id: string;
+    role: "admin" | "user";
   }
 }
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    session: async ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.id,
+        role: token.role,
       },
     }),
+    jwt: async ({ user, token }) => {
+      if (user)
+        return {
+          ...token,
+          id: user.id,
+          role: user.role,
+        };
+
+      return token;
+    },
   },
-  adapter: PrismaAdapter(db),
+  session: {
+    strategy: "jwt",
+    maxAge: 14 * 24 * 60 * 60, // 14 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
   providers: [
-    EmailProvider({
-      server: {
-        host: env.EMAIL_SERVER_HOST,
-        port: env.EMAIL_SERVER_PORT,
-        auth: {
-          user: env.EMAIL_SERVER_USER,
-          pass: env.EMAIL_SERVER_PASSWORD,
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "example@gmail.com",
         },
+        password: { label: "Password", type: "password" },
       },
-      from: env.EMAIL_FROM,
+      authorize: async (credentials, _request) => {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        const user = await db.user.findUnique({
+          where: {
+            email,
+          },
+        });
+
+        if (!user) throw new Error("email:Пользователь не найден");
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if (!isValidPassword) throw new Error("password:Неверный пароль");
+
+        return user;
+      },
     }),
   ],
+  secret: env.NEXTAUTH_SECRET,
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);

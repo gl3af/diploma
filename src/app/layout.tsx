@@ -4,15 +4,17 @@ import { Montserrat } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { cn } from "@/shared/utils";
+import { Box, Toaster } from "@/shared/ui";
+import { SessionProvider, ThemeProvider } from "@/providers";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
-  variable: "--font-sans",
 });
 
 export const metadata = {
-  title: "My Fitness Journey",
-  description: "Фитнес-платформа для персонализированного тренировочного опыта",
+  title: "КАЗ им. Горбунова",
+  description: "Портал молодых специалистов",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -22,12 +24,26 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${montserrat.className}`}>
+    <Box as="html" lang="en">
+      <Box
+        as="body"
+        className={cn(
+          "min-h-screen bg-background antialiased",
+          montserrat.className,
+        )}
+      >
         <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SessionProvider>{children}</SessionProvider>
+          </ThemeProvider>
         </TRPCReactProvider>
-      </body>
-    </html>
+        <Toaster />
+      </Box>
+    </Box>
   );
 }
