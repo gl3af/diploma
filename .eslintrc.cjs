@@ -2,33 +2,53 @@
 const config = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: true,
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: "module",
+    project: "./tsconfig.json",
+    createDefaultProgram: true,
   },
   plugins: ["@typescript-eslint"],
   extends: [
-    "plugin:@next/next/recommended",
-    "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked",
+    "next",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
   ],
   rules: {
-    "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/consistent-type-definitions": "off",
-
-    "@typescript-eslint/consistent-type-imports": [
+    "sort-imports": [
       "warn",
       {
-        prefer: "type-imports",
-        fixStyle: "inline-type-imports",
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: true,
+        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        allowSeparatedGroups: false,
       },
     ],
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-    "@typescript-eslint/require-await": "off",
-    "@typescript-eslint/no-misused-promises": [
-      "error",
-      {
-        checksVoidReturn: { attributes: false },
-      },
-    ],
+    "@next/next/no-server-import-in-page": "off",
+    "@typescript-eslint/quotes": ["error", "double"],
+    "@typescript-eslint/comma-dangle": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "import/no-duplicates": "error",
+    "import/export": "off",
+    "react/prop-types": "off",
+    "no-console": ["error", { allow: ["warn", "error"] }],
+    "react-hooks/exhaustive-deps": "off",
   },
 };
 

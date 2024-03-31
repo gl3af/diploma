@@ -59,7 +59,7 @@ export const phonesRouter = createTRPCRouter({
       const position = await db.position.findFirst({
         where: {
           name: input.position,
-          departmentId: department!.id,
+          departmentId: department?.id ?? "",
         },
       });
 
@@ -68,12 +68,12 @@ export const phonesRouter = createTRPCRouter({
           ...input,
           department: {
             connect: {
-              id: department!.id,
+              id: department?.id,
             },
           },
           position: {
             connect: {
-              id: position!.id,
+              id: position?.id,
             },
           },
         },
@@ -93,7 +93,7 @@ export const phonesRouter = createTRPCRouter({
       const position = await db.position.findFirst({
         where: {
           name: input.position,
-          departmentId: department!.id,
+          departmentId: department?.id,
         },
       });
 
@@ -105,12 +105,12 @@ export const phonesRouter = createTRPCRouter({
           ...input,
           department: {
             connect: {
-              id: department!.id,
+              id: department?.id,
             },
           },
           position: {
             connect: {
-              id: position!.id,
+              id: position?.id,
             },
           },
         },

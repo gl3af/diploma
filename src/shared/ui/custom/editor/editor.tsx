@@ -51,3 +51,5 @@ export const Editor = forwardRef<
     </Box>
   );
 });
+
+Editor.displayName = "Editor";

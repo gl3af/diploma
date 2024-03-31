@@ -17,7 +17,7 @@ import { type Session } from "next-auth";
 import Link from "next/link";
 
 export const AuthDialog = ({ session }: { session: Session | null }) => {
-  if (!!session)
+  if (session)
     return (
       <Button
         variant="outline"

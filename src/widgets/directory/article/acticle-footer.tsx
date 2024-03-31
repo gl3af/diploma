@@ -11,7 +11,7 @@ export const ArticleFooter = ({ id }: { id: number | undefined }) => {
         size="sm"
         asChild
       >
-        <Link href="./">
+        <Link href="./" passHref>
           <Undo2 size={20} />
           <Text>К статьям</Text>
         </Link>

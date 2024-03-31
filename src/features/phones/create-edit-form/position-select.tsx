@@ -36,8 +36,6 @@ export const PositionSelect = ({
       { enabled: !!department },
     );
 
-  console.log(departmentInfo?.positions);
-
   return (
     <FormItem className="flex flex-col gap-2 space-y-0">
       <FormLabel className="text-md text-left font-medium">

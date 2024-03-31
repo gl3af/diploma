@@ -15,7 +15,6 @@ import {
   FormMessage,
   Input,
   Loader,
-  useFormField,
 } from "@/shared/ui";
 import { type MutableRefObject } from "react";
 
@@ -50,24 +49,21 @@ export const Template = ({
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => {
-            const { error } = useFormField();
-            return (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Название"
-                    className={cn(
-                      "text-md font-medium placeholder:text-sm",
-                      error && "ring-2 ring-red-500 focus-visible:ring-red-500",
-                    )}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field, fieldState: { error } }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Название"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button disabled={isLoading}>
           {isLoading ? <Loader /> : buttonContent}

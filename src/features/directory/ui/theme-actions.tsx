@@ -11,7 +11,7 @@ export const ThemeActions = ({ themeId }: { themeId: string }) => {
 
   return (
     <Box className="flex flex-wrap gap-4">
-      <Link href={`./directory/create?themeId=${themeId}`}>
+      <Link href={`./directory/create?themeId=${themeId}`} passHref>
         <Button size="sm">Добавить статью</Button>
       </Link>
       <DeleteThemeModal themeId={themeId} />

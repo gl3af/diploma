@@ -20,7 +20,12 @@ export const Route = (
 
   const { href, label, icon, displayLabels } = props;
   return (
-    <Link href={href} className="group flex items-center gap-4" title={label}>
+    <Link
+      href={href}
+      className="group flex items-center gap-4"
+      title={label}
+      passHref
+    >
       <Box
         className={cn(
           "rounded-full p-3 group-hover:bg-secondary",

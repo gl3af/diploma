@@ -10,7 +10,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormField,
   Input,
   Button,
   DialogClose,
@@ -117,28 +116,25 @@ export const CreateEditForm = (props: CreateEditFormProps) => {
         <FormField
           control={form.control}
           name="phoneNumber"
-          render={({ field }) => {
-            const { error } = useFormField();
-            return (
-              <FormItem className="flex flex-col gap-2 space-y-0">
-                <FormLabel className="text-md text-left font-medium">
-                  Номер телефона <span className="text-red-600">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="tel"
-                    placeholder="+79999999999"
-                    className={cn(
-                      "text-md font-medium placeholder:text-sm",
-                      error && "ring-2 ring-red-500 focus-visible:ring-red-500",
-                    )}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field, fieldState: { error } }) => (
+            <FormItem className="flex flex-col gap-2 space-y-0">
+              <FormLabel className="text-md text-left font-medium">
+                Номер телефона <span className="text-red-600">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="tel"
+                  placeholder="+79999999999"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button type="submit" className="w-full text-white sm:w-fit">
           {`${isCreateMode ? "Добавить" : "Изменить"}`}

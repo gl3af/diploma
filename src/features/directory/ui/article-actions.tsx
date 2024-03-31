@@ -11,7 +11,7 @@ export const ArticleActions = ({ id }: { id: number | undefined }) => {
 
   return (
     <Box className="flex flex-wrap gap-4">
-      <Link href={`./${id}/edit`}>
+      <Link href={`./${id}/edit`} passHref>
         <Button size="sm">Изменить статью</Button>
       </Link>
       <DeleteArticleModal id={id} />

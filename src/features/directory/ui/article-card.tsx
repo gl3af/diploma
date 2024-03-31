@@ -10,7 +10,7 @@ type ActicleCardProps = Pick<
 >;
 
 export const ArticleCard = ({ id, name, shortContent }: ActicleCardProps) => (
-  <Link href={`./directory/${id}`}>
+  <Link href={`./directory/${id}`} passHref>
     <Card className="relative grid gap-2 rounded-md border-2 p-3">
       <ExternalLink className="absolute right-2 top-2" size={20} />
       <Badge className="w-fit">Статья</Badge>
