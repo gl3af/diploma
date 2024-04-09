@@ -10,17 +10,15 @@ export const useCreateQueryString = () => {
 
       if (!value) {
         current.delete(name);
+      } else if (current.has(name)) {
+        current.set(name, value);
       } else {
-        if (current.has(name)) {
-          current.set(name, value);
-        } else {
-          current.append(name, value);
-        }
+        current.append(name, value);
       }
 
       return current.toString() || "";
     },
-    [searchParams],
+    [searchParams]
   );
 
   return createQueryString;

@@ -2,6 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { type z } from "zod";
+import { useRouter } from "next/navigation";
+
 import { cn } from "@/shared/utils";
 import {
   Form,
@@ -18,11 +21,10 @@ import {
   Editor,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { $ArticleSchema } from "./validation";
-import { type z } from "zod";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/hooks";
 import { type RouterOutputs } from "@/trpc/shared";
+
+import { $ArticleSchema } from "./validation";
 
 type EditArticle = z.infer<typeof $ArticleSchema>;
 
@@ -30,7 +32,7 @@ type CreateArticleFormProps = {
   article: NonNullable<RouterOutputs["articles"]["getArticle"]>;
 };
 
-export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
+export function EditArticleForm({ article }: CreateArticleFormProps) {
   const router = useRouter();
 
   const form = useForm<EditArticle>({
@@ -45,15 +47,14 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
   const { toast } = useToast();
 
   const utils = api.useUtils();
-  const { mutateAsync: create, isLoading } =
-    api.articles.updateArticle.useMutation();
+  const { mutateAsync: create, isLoading } = api.articles.updateArticle.useMutation();
 
   const onSubmit = async (values: EditArticle) => {
     await create(
       { ...values, id: article.id },
       {
         onSuccess: () => {
-          void utils.articles.getArticle
+          utils.articles.getArticle
             .invalidate()
             .then(() => router.push(`/admin/directory/${article.id}`));
         },
@@ -63,17 +64,13 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
             description: "Статья с таким названием уже существует",
             variant: "destructive",
           }),
-      },
+      }
     );
   };
 
   return (
     <Form {...form}>
-      <Box
-        as="form"
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-      >
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -89,8 +86,7 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
                   placeholder="Название статьи"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    fieldState.error &&
-                      "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -113,8 +109,7 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
                   placeholder="Описание статьи"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    fieldState.error &&
-                      "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -137,8 +132,7 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
                   disabled={isLoading}
                   className={cn(
                     "text-md font-medium",
-                    error &&
-                      "ring- ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring- ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -146,15 +140,11 @@ export const EditArticleForm = ({ article }: CreateArticleFormProps) => {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="w-full space-x-2 text-white sm:w-fit"
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full space-x-2 text-white sm:w-fit" disabled={isLoading}>
           {isLoading && <Loader size={16} />}
           <Box as="span">Изменить</Box>
         </Button>
       </Box>
     </Form>
   );
-};
+}

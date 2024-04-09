@@ -7,17 +7,16 @@ import { useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { type AppRouter } from "@/server/api/root";
+
 import { getUrl, transformer } from "./shared";
 
 export const api = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: {
-  children: React.ReactNode;
-  cookies: string;
-}) {
+type ProviderProps = { children: React.ReactNode; cookies: string };
+
+export function TRPCReactProvider({ children, cookies }: ProviderProps) {
   const [queryClient] = useState(
-    () =>
-      new QueryClient({
+    () => new QueryClient({
         defaultOptions: {
           queries: {
             retry: false,
@@ -27,36 +26,33 @@ export function TRPCReactProvider(props: {
             refetchOnWindowFocus: false,
           },
         },
-      }),
+      })
   );
 
-  const [trpcClient] = useState(() =>
-    api.createClient({
+  const [trpcClient] = useState(() => api.createClient({
       transformer,
       links: [
         loggerLink({
-          enabled: (op) =>
-            process.env.NODE_ENV === "development" ||
-            (op.direction === "down" && op.result instanceof Error),
+          enabled: (op) => process.env.NODE_ENV === "development"
+            || (op.direction === "down" && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({
           url: getUrl(),
           headers() {
             return {
-              cookie: props.cookies,
+              cookie: cookies,
               "x-trpc-source": "react",
             };
           },
         }),
       ],
-    }),
-  );
+    }));
 
   return (
     <QueryClientProvider client={queryClient}>
       <api.Provider client={trpcClient} queryClient={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        {props.children}
+        {children}
       </api.Provider>
     </QueryClientProvider>
   );

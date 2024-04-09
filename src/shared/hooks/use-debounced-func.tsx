@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export const useDebouncedFunc = <A extends unknown[]>(
   callback: (...args: A) => void,
-  wait: number,
+  wait: number
 ) => {
-  // Отслеживание аргументов и таймера между вызовами
   const argsRef = useRef<A>();
   const timeout = useRef<ReturnType<typeof setTimeout>>();
 
@@ -14,20 +13,22 @@ export const useDebouncedFunc = <A extends unknown[]>(
     }
   };
 
-  // Очистка таймера при mount-е
   useEffect(() => cleanup, []);
 
-  const debouncedFunc = React.useCallback((...args: A) => {
-    argsRef.current = args;
+  const debouncedFunc = useCallback(
+    (...args: A) => {
+      argsRef.current = args;
 
-    cleanup();
+      cleanup();
 
-    timeout.current = setTimeout(() => {
-      if (argsRef.current) {
-        callback(...argsRef.current);
-      }
-    }, wait);
-  }, []);
+      timeout.current = setTimeout(() => {
+        if (argsRef.current) {
+          callback(...argsRef.current);
+        }
+      }, wait);
+    },
+    [wait, callback]
+  );
 
   return debouncedFunc;
 };

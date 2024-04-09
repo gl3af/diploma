@@ -2,7 +2,7 @@ import { Box, Container, Logo } from "@/shared/ui";
 import { SignOut } from "@/features/header";
 import { MobileSidebar } from "@/features/sidebar";
 
-export const Header = () => {
+export function Header() {
   return (
     <Box as="header">
       <Container className="flex items-center justify-center bg-background/80 py-6">
@@ -16,4 +16,4 @@ export const Header = () => {
       </Container>
     </Box>
   );
-};
+}

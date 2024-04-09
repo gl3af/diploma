@@ -1,12 +1,12 @@
 import { Box } from "./box";
 import { cn } from "../../utils";
 
-export const Container = ({
+export function Container({
   className,
   children,
 }: {
   className?: string;
   children: React.ReactNode;
-}) => {
-  return <Box className={cn("container h-full", className)}>{children}</Box>;
-};
+}) {
+  return <Box className={cn("container h-full", className)}>{children}</Box>
+}

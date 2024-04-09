@@ -5,12 +5,12 @@ import parse, {
   type DOMNode,
   attributesToProps,
 } from "html-react-parser";
+
 import { Box, Text, Title } from "./custom";
 
 const options: HTMLReactParserOptions = {
   replace(domNode) {
-    if (!(domNode instanceof Element) || !domNode.children || !domNode.attribs)
-      return;
+    if (!(domNode instanceof Element) || !domNode.children || !domNode.attribs) return null;
 
     const props = attributesToProps(domNode.attribs);
 
@@ -69,9 +69,11 @@ const options: HTMLReactParserOptions = {
         </Text>
       );
     }
+
+    return domNode;
   },
 };
 
-export const HtmlContent = ({ content }: { content: string }) => {
-  return <>{parse(content, options)}</>;
-};
+export function HtmlContent({ content }: { content: string }) {
+  return <>{parse(content, options)}</>
+}

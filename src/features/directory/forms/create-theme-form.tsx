@@ -2,6 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRef } from "react";
+import { type z } from "zod";
+
 import { cn } from "@/shared/utils";
 import {
   Form,
@@ -17,14 +20,13 @@ import {
   Box,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { useRef } from "react";
-import { $CreateThemeSchema } from "./validation";
-import { type z } from "zod";
 import { useToast } from "@/shared/hooks";
+
+import { $CreateThemeSchema } from "./validation";
 
 type CreateTheme = z.infer<typeof $CreateThemeSchema>;
 
-export const CreateThemeForm = () => {
+export function CreateThemeForm() {
   const form = useForm<CreateTheme>({
     resolver: zodResolver($CreateThemeSchema),
     defaultValues: {
@@ -36,13 +38,12 @@ export const CreateThemeForm = () => {
 
   const ref = useRef<HTMLButtonElement | null>(null);
   const utils = api.useUtils();
-  const { mutateAsync: create, isLoading } =
-    api.directory.createTheme.useMutation();
+  const { mutateAsync: create, isLoading } = api.directory.createTheme.useMutation();
 
   const onSubmit = async (values: CreateTheme) => {
     await create(values, {
       onSuccess: () => {
-        void utils.directory.getThemes.invalidate();
+        utils.directory.getThemes.invalidate();
         form.reset();
         ref?.current?.click();
       },
@@ -57,11 +58,7 @@ export const CreateThemeForm = () => {
 
   return (
     <Form {...form}>
-      <Box
-        as="form"
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-      >
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -77,8 +74,7 @@ export const CreateThemeForm = () => {
                   placeholder="Название темы"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    fieldState.error &&
-                      "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -86,11 +82,7 @@ export const CreateThemeForm = () => {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="w-full space-x-2 text-white sm:w-fit"
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full space-x-2 text-white sm:w-fit" disabled={isLoading}>
           {isLoading && <Loader size={16} />}
           <Box as="span">Добавить</Box>
         </Button>
@@ -98,4 +90,4 @@ export const CreateThemeForm = () => {
       </Box>
     </Form>
   );
-};
+}

@@ -1,16 +1,11 @@
-import {
-  Button,
-  Logo,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from "@/shared/ui";
 import { Menu } from "lucide-react";
-import { Routes } from "./routes";
+
+import { Button, Logo, Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/shared/ui";
 import { getServerAuthSession } from "@/server/auth";
 
-export const MobileSidebar = async () => {
+import { Routes } from "./routes";
+
+export async function MobileSidebar() {
   const session = await getServerAuthSession();
   const isAdmin = session?.user.role === "admin";
 
@@ -29,4 +24,4 @@ export const MobileSidebar = async () => {
       </SheetContent>
     </Sheet>
   );
-};
+}

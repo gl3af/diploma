@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+
 import {
   Button,
   Dialog,
@@ -12,10 +15,8 @@ import {
   Loader,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
 
-export const DeleteArticleModal = ({ id }: { id: number }) => {
+export function DeleteArticleModal({ id }: { id: number }) {
   const router = useRouter();
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -37,9 +38,7 @@ export const DeleteArticleModal = ({ id }: { id: number }) => {
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-[550px]">
-        <DialogHeader className="text-lg font-bold">
-          Удаление статьи
-        </DialogHeader>
+        <DialogHeader className="text-lg font-bold">Удаление статьи</DialogHeader>
         <DialogDescription className="text-md font-medium">
           Вы уверены, что хотите удалить статью?
         </DialogDescription>
@@ -57,4 +56,4 @@ export const DeleteArticleModal = ({ id }: { id: number }) => {
       <DialogClose className="hidden" ref={ref} />
     </Dialog>
   );
-};
+}

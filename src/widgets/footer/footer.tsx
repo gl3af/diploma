@@ -1,7 +1,7 @@
 import { ThemeToggle } from "@/features/theme-toggle";
 import { Box, Container, Logo } from "@/shared/ui";
 
-export const Footer = () => {
+export function Footer() {
   return (
     <Box as="footer" className="py-6">
       <Container>
@@ -12,4 +12,4 @@ export const Footer = () => {
       </Container>
     </Box>
   );
-};
+}
