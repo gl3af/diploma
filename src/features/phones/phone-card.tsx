@@ -1,12 +1,13 @@
 import { Badge, Box, Card, Text } from "@/shared/ui";
 import { type RouterOutputs } from "@/trpc/shared";
+
 import { PhoneActions } from "./phone-actions";
 
 export type PhoneCardProps = {
   item: RouterOutputs["phones"]["getAll"][number];
 };
 
-export const PhoneCard = ({ item }: PhoneCardProps) => {
+export function PhoneCard({ item }: PhoneCardProps) {
   const { position, phoneNumber, fullName, department } = item;
 
   return (
@@ -24,4 +25,4 @@ export const PhoneCard = ({ item }: PhoneCardProps) => {
       </Box>
     </Card>
   );
-};
+}

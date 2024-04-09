@@ -5,7 +5,7 @@ type PositionsListProps = {
   positions: RouterOutputs["departments"]["getAll"][number]["positions"];
 };
 
-export const PositionsList = ({ positions }: PositionsListProps) => {
+export function PositionsList({ positions }: PositionsListProps) {
   if (!positions.length) return <Text>Должности не добавлены</Text>;
 
   return (
@@ -18,4 +18,4 @@ export const PositionsList = ({ positions }: PositionsListProps) => {
       </Box>
     </>
   );
-};
+}

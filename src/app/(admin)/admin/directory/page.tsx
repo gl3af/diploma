@@ -1,9 +1,10 @@
+import { Book } from "lucide-react";
+import { unstable_noStore as noStore } from "next/cache";
+
 import { AdminContent } from "@/layouts";
 import { Box } from "@/shared/ui";
 import { api } from "@/trpc/server";
 import { DirectoryHeader, ThemesList } from "@/widgets/directory";
-import { Book } from "lucide-react";
-import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Directory() {
   noStore();

@@ -2,10 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type * as z from "zod";
 
 import { useToast } from "@/shared/hooks";
-import { authSchema } from "../schema";
 import { cn } from "@/shared/utils";
 import {
   Form,
@@ -19,7 +17,11 @@ import {
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
-export const SignUpForm = () => {
+import { authSchema } from "../schema";
+
+import type * as z from "zod";
+
+export function SignUpForm() {
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -43,7 +45,7 @@ export const SignUpForm = () => {
           });
           form.reset();
         },
-      },
+      }
     );
   };
 
@@ -64,7 +66,7 @@ export const SignUpForm = () => {
                   placeholder="example@gmail.com"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -87,7 +89,7 @@ export const SignUpForm = () => {
                   placeholder="Пароль"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -101,4 +103,4 @@ export const SignUpForm = () => {
       </form>
     </Form>
   );
-};
+}

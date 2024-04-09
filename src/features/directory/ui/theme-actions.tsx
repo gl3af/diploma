@@ -1,11 +1,13 @@
 "use client";
 
-import { Box, Button } from "@/shared/ui";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+
+import { Box, Button } from "@/shared/ui";
+
 import { DeleteThemeModal } from "../modals";
 
-export const ThemeActions = ({ themeId }: { themeId: string }) => {
+export function ThemeActions({ themeId }: { themeId: string }) {
   const { data } = useSession();
   if (data?.user.role !== "admin") return null;
 
@@ -17,4 +19,4 @@ export const ThemeActions = ({ themeId }: { themeId: string }) => {
       <DeleteThemeModal themeId={themeId} />
     </Box>
   );
-};
+}

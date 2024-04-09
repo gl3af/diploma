@@ -9,11 +9,10 @@ type InitialData = {
   initialData: RouterOutputs["directory"]["getThemes"];
 };
 
-export const ThemesList = ({ initialData }: InitialData) => {
-  const { data: themes = [], isFetching } = api.directory.getThemes.useQuery(
-    undefined,
-    { initialData },
-  );
+export function ThemesList({ initialData }: InitialData) {
+  const { data: themes = [], isFetching } = api.directory.getThemes.useQuery(undefined, {
+    initialData,
+  });
 
   if (isFetching) return <Loader size={56} />;
 
@@ -24,4 +23,4 @@ export const ThemesList = ({ initialData }: InitialData) => {
       ))}
     </Accordion>
   );
-};
+}

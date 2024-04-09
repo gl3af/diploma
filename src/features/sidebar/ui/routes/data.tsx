@@ -1,7 +1,8 @@
 import { Book, Home, Settings, CalendarDays, Info } from "lucide-react";
-import { type Route } from "../route";
 
-type Routes = Route[];
+import { type TRoute } from "../route";
+
+type Routes = TRoute[];
 
 const routes: Routes = [
   {

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import {
   Button,
   Dialog,
@@ -12,15 +14,14 @@ import {
   Loader,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { useRef } from "react";
 
-export const DeleteThemeModal = ({ themeId }: { themeId: string }) => {
+export function DeleteThemeModal({ themeId }: { themeId: string }) {
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
 
   const { mutate, isLoading } = api.directory.deleteTheme.useMutation({
     onSuccess: async () => {
-      void utils.directory.getThemes.invalidate().then(() => {
+      utils.directory.getThemes.invalidate().then(() => {
         ref.current?.click();
       });
     },
@@ -39,11 +40,7 @@ export const DeleteThemeModal = ({ themeId }: { themeId: string }) => {
           Вы уверены, что хотите удалить тему?
         </DialogDescription>
         <DialogFooter className="flex gap-3">
-          <Button
-            size="sm"
-            disabled={isLoading}
-            onClick={() => mutate({ id: themeId })}
-          >
+          <Button size="sm" disabled={isLoading} onClick={() => mutate({ id: themeId })}>
             {isLoading ? <Loader /> : "Удалить"}
           </Button>
           <DialogClose asChild>
@@ -56,4 +53,4 @@ export const DeleteThemeModal = ({ themeId }: { themeId: string }) => {
       <DialogClose className="hidden" ref={ref} />
     </Dialog>
   );
-};
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useRef } from "react";
+
 import {
   Button,
   DeleteIcon,
@@ -13,15 +15,14 @@ import {
   Loader,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import React, { useRef } from "react";
 
-export const DeleteDialog = ({ id }: { id: string }) => {
+export function DeleteDialog({ id }: { id: string }) {
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
 
   const { mutateAsync, isLoading } = api.departments.delete.useMutation({
     onSuccess: async () => {
-      void utils.departments.getAll.invalidate();
+      utils.departments.getAll.invalidate();
       ref.current?.click();
     },
   });
@@ -32,9 +33,7 @@ export const DeleteDialog = ({ id }: { id: string }) => {
         <DeleteIcon />
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-[550px]">
-        <DialogHeader className="text-lg font-bold">
-          Удаление отдела
-        </DialogHeader>
+        <DialogHeader className="text-lg font-bold">Удаление отдела</DialogHeader>
         <DialogDescription className="text-md font-medium">
           Вы уверены, что хотите удалить отдел?
         </DialogDescription>
@@ -52,4 +51,4 @@ export const DeleteDialog = ({ id }: { id: string }) => {
       <DialogClose ref={ref} className="hidden" />
     </Dialog>
   );
-};
+}

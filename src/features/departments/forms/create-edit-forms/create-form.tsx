@@ -3,12 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
-
-import { api } from "@/trpc/react";
-import { $Schema, Template } from "./template";
 import { useRef } from "react";
 
-export const CreateForm = () => {
+import { api } from "@/trpc/react";
+
+import { $Schema, Template } from "./template";
+
+export function CreateForm() {
   const form = useForm<z.infer<typeof $Schema>>({
     resolver: zodResolver($Schema),
     defaultValues: {
@@ -23,7 +24,7 @@ export const CreateForm = () => {
   const onSubmit = async (values: z.infer<typeof $Schema>) => {
     await mutateAsync(values, {
       onSuccess: () => {
-        void utils.departments.getAll.invalidate();
+        utils.departments.getAll.invalidate();
         form.reset();
         ref.current?.click();
       },
@@ -39,4 +40,4 @@ export const CreateForm = () => {
       buttonRef={ref}
     />
   );
-};
+}

@@ -11,7 +11,7 @@ type InitialData = {
   initialData: RouterOutputs["departments"]["getAll"];
 };
 
-export const DepartmentsList = ({ initialData }: InitialData) => {
+export function DepartmentsList({ initialData }: InitialData) {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") ?? "";
 
@@ -20,7 +20,7 @@ export const DepartmentsList = ({ initialData }: InitialData) => {
     {
       initialData,
       keepPreviousData: true,
-    },
+    }
   );
 
   if (isFetching) return <Loader size={56} />;
@@ -32,4 +32,4 @@ export const DepartmentsList = ({ initialData }: InitialData) => {
       ))}
     </Box>
   );
-};
+}

@@ -1,11 +1,13 @@
 "use client";
 
-import { Box, Button } from "@/shared/ui";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+
+import { Box, Button } from "@/shared/ui";
+
 import { DeleteArticleModal } from "../modals";
 
-export const ArticleActions = ({ id }: { id: number | undefined }) => {
+export function ArticleActions({ id }: { id: number | undefined }) {
   const { data } = useSession();
   if (data?.user.role !== "admin" || !id) return null;
 
@@ -17,4 +19,4 @@ export const ArticleActions = ({ id }: { id: number | undefined }) => {
       <DeleteArticleModal id={id} />
     </Box>
   );
-};
+}

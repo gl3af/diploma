@@ -1,5 +1,8 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
+
 import {
   Box,
   Select,
@@ -12,31 +15,24 @@ import {
   Text,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCreateQueryString } from "@/shared/hooks";
-import { X } from "lucide-react";
 
-export const DepartmentSelect = () => {
-  const { data: departments = [], isLoading } =
-    api.departments.getAll.useQuery();
+export function DepartmentSelect() {
+  const { data: departments = [], isLoading } = api.departments.getAll.useQuery();
 
   const pathname = usePathname();
   const router = useRouter();
   const createQueryString = useCreateQueryString();
 
   const onValueChange = (value: string) => {
-    router.replace(pathname + "?" + createQueryString(value, "department"));
+    router.replace(`${pathname}?${createQueryString(value, "department")}`);
   };
 
   const searchParams = useSearchParams();
   const department = searchParams.get("department") ?? "";
 
   return (
-    <Select
-      onValueChange={onValueChange}
-      value={department}
-      disabled={isLoading}
-    >
+    <Select onValueChange={onValueChange} value={department} disabled={isLoading}>
       <SelectTrigger className="h-full rounded-xl">
         <SelectValue placeholder="Выберите отдел" />
       </SelectTrigger>
@@ -45,10 +41,7 @@ export const DepartmentSelect = () => {
           <SelectLabel>
             <Box className="flex items-center justify-between">
               <Text>Отделы</Text>
-              <X
-                onClick={() => onValueChange("")}
-                className="h-4 w-4 cursor-pointer"
-              />
+              <X onClick={() => onValueChange("")} className="h-4 w-4 cursor-pointer" />
             </Box>
           </SelectLabel>
           {departments.map(({ id, name }) => (
@@ -60,4 +53,4 @@ export const DepartmentSelect = () => {
       </SelectContent>
     </Select>
   );
-};
+}

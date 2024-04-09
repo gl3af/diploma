@@ -26,7 +26,7 @@ const $Schema = z.object({
     .min(1, { message: "Введите название должности" }),
 });
 
-export const NewPositionForm = ({ id }: { id: string }) => {
+export function NewPositionForm({ id }: { id: string }) {
   const form = useForm<z.infer<typeof $Schema>>({
     resolver: zodResolver($Schema),
     defaultValues: {
@@ -45,10 +45,10 @@ export const NewPositionForm = ({ id }: { id: string }) => {
       },
       {
         onSuccess: () => {
-          void utils.departments.getAll.invalidate();
+          utils.departments.getAll.invalidate();
           form.reset();
         },
-      },
+      }
     );
   };
 
@@ -70,7 +70,7 @@ export const NewPositionForm = ({ id }: { id: string }) => {
                   placeholder="Новая должность"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -84,4 +84,4 @@ export const NewPositionForm = ({ id }: { id: string }) => {
       </Box>
     </Form>
   );
-};
+}

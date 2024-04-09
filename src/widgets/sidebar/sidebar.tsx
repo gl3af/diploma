@@ -2,7 +2,7 @@ import { Routes } from "@/features/sidebar";
 import { getServerAuthSession } from "@/server/auth";
 import { Box } from "@/shared/ui";
 
-export const Sidebar = async () => {
+export async function Sidebar() {
   const session = await getServerAuthSession();
   const isAdmin = session?.user.role === "admin";
 
@@ -14,4 +14,4 @@ export const Sidebar = async () => {
       <Routes isAdmin={isAdmin} />
     </Box>
   );
-};
+}

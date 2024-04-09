@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import {
   Button,
   DeleteIcon,
@@ -12,15 +14,14 @@ import {
   DialogTrigger,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import React, { useRef } from "react";
 
-export const DeleteModal = ({ id }: { id: string }) => {
+export function DeleteModal({ id }: { id: string }) {
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
 
   const { mutate } = api.phones.delete.useMutation({
     onSuccess: async () => {
-      void utils.phones.getAll.invalidate().then(() => {
+      utils.phones.getAll.invalidate().then(() => {
         ref.current?.click();
       });
     },
@@ -32,9 +33,7 @@ export const DeleteModal = ({ id }: { id: string }) => {
         <DeleteIcon />
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-[550px]">
-        <DialogHeader className="text-lg font-bold">
-          Удаление записи
-        </DialogHeader>
+        <DialogHeader className="text-lg font-bold">Удаление записи</DialogHeader>
         <DialogDescription className="text-md font-medium">
           Вы действительно хотите удалить эту запись?
         </DialogDescription>
@@ -52,4 +51,4 @@ export const DeleteModal = ({ id }: { id: string }) => {
       </DialogContent>
     </Dialog>
   );
-};
+}

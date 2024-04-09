@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type * as z from "zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -17,10 +16,13 @@ import {
   FormMessage,
   Input,
 } from "@/shared/ui";
-import { authSchema } from "../schema";
 import { cn } from "@/shared/utils";
 
-export const SignInForm = () => {
+import { authSchema } from "../schema";
+
+import type * as z from "zod";
+
+export function SignInForm() {
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -55,11 +57,7 @@ export const SignInForm = () => {
 
   return (
     <Form {...form}>
-      <Box
-        as="form"
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-      >
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -74,7 +72,7 @@ export const SignInForm = () => {
                   placeholder="example@gmail.com"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -97,7 +95,7 @@ export const SignInForm = () => {
                   placeholder="Пароль"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
-                    error && "ring-2 ring-red-500 focus-visible:ring-red-500",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
                   )}
                 />
               </FormControl>
@@ -111,4 +109,4 @@ export const SignInForm = () => {
       </Box>
     </Form>
   );
-};
+}

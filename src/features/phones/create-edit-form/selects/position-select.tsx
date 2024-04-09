@@ -1,3 +1,7 @@
+import { type ControllerFieldState, type ControllerRenderProps } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
+
+import { cn } from "@/shared/utils";
 import {
   FormControl,
   FormItem,
@@ -11,30 +15,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui";
-import {
-  type ControllerFieldState,
-  type ControllerRenderProps,
-} from "react-hook-form";
-import { type CreateSchema } from "./validation";
-import { cn } from "@/shared/utils";
-import { useSearchParams } from "next/navigation";
 import { api } from "@/trpc/react";
 
-export const PositionSelect = ({
+import { type CreateSchema } from "../validation";
+
+export function PositionSelect({
   field,
   fieldState,
 }: {
   field: ControllerRenderProps<CreateSchema, "position">;
   fieldState: ControllerFieldState;
-}) => {
+}) {
   const searchParams = useSearchParams();
   const department = searchParams.get("dept");
 
-  const { data: departmentInfo, isLoading } =
-    api.departments.getByName.useQuery(
-      { name: department },
-      { enabled: !!department },
-    );
+  const { data: departmentInfo, isLoading } = api.departments.getByName.useQuery(
+    { name: department },
+    { enabled: !!department }
+  );
 
   return (
     <FormItem className="flex flex-col gap-2 space-y-0">
@@ -47,10 +45,7 @@ export const PositionSelect = ({
         disabled={!department || isLoading}
       >
         <FormControl
-          className={cn(
-            fieldState.error &&
-              "ring-2 ring-red-500 focus-visible:ring-red-500",
-          )}
+          className={cn(fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500")}
         >
           <SelectTrigger>
             <SelectValue placeholder="Выберите должность" />
@@ -71,4 +66,4 @@ export const PositionSelect = ({
       <FormMessage />
     </FormItem>
   );
-};
+}

@@ -1,20 +1,16 @@
+import { Phone } from "lucide-react";
+
 import { AdminContent } from "@/layouts";
 import { Box } from "@/shared/ui";
 import { api } from "@/trpc/server";
 import { PhonesFilter, PhonesHeader, PhonesList } from "@/widgets/phones";
-import { Phone } from "lucide-react";
-import React from "react";
 
 type SearchParams = {
   name?: string;
   department?: string;
 };
 
-export default async function Phones({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function Phones({ searchParams }: { searchParams: SearchParams }) {
   const { department, name } = searchParams;
   const phones = await api.phones.getAll.query({ department, name });
 

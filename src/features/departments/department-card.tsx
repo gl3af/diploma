@@ -1,5 +1,6 @@
 import { Box, Card } from "@/shared/ui";
 import { type RouterOutputs } from "@/trpc/shared";
+
 import { CardHeader, PositionsList } from "./ui";
 import { NewPositionForm } from "./forms";
 
@@ -7,7 +8,7 @@ type DepartmentCardProps = {
   item: RouterOutputs["departments"]["getAll"][number];
 };
 
-export const DepartmentCard = ({ item }: DepartmentCardProps) => {
+export function DepartmentCard({ item }: DepartmentCardProps) {
   const { id, name, positions } = item;
 
   return (
@@ -19,4 +20,4 @@ export const DepartmentCard = ({ item }: DepartmentCardProps) => {
       </Box>
     </Card>
   );
-};
+}
