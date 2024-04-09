@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const phoneRegex = new RegExp(/^\+?7|8(\d{10})$/);
+const phoneRegex = /^\+?7|8(\d{10})$/;
 
 export const $CreateSchema = z.object({
   fullName: z.string().trim().min(1, "Введите ФИО"),

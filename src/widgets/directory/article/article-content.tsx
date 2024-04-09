@@ -1,11 +1,6 @@
 import { Box, HtmlContent } from "@/shared/ui";
-import React from "react";
 
-export const ArticleContent = ({
-  content,
-}: {
-  content: string | undefined;
-}) => {
+export function ArticleContent({ content }: { content: string | undefined }) {
   if (!content) return null;
 
   return (
@@ -13,4 +8,4 @@ export const ArticleContent = ({
       <HtmlContent content={content} />
     </Box>
   );
-};
+}

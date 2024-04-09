@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type * as z from "zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -16,12 +15,14 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  useFormField,
 } from "@/shared/ui";
-import { authSchema } from "../schema";
 import { cn } from "@/shared/utils";
 
-export const SignInForm = () => {
+import { authSchema } from "../schema";
+
+import type * as z from "zod";
+
+export function SignInForm() {
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -60,53 +61,47 @@ export const SignInForm = () => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => {
-            const { error } = useFormField();
-            return (
-              <FormItem className="flex flex-col gap-2 space-y-0">
-                <FormLabel className="text-md text-left font-medium">
-                  Почта <span className="text-red-600">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="example@gmail.com"
-                    className={cn(
-                      "text-md font-medium placeholder:text-sm",
-                      error && "ring-2 ring-red-500 focus-visible:ring-red-500",
-                    )}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field, fieldState: { error } }) => (
+            <FormItem className="flex flex-col gap-2 space-y-0">
+              <FormLabel className="text-md text-left font-medium">
+                Почта <span className="text-red-600">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="example@gmail.com"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => {
-            const { error } = useFormField();
-            return (
-              <FormItem className="flex flex-col gap-2 space-y-0">
-                <FormLabel className="text-md text-left font-medium">
-                  Пароль <span className="text-red-600">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    placeholder="Пароль"
-                    className={cn(
-                      "text-md font-medium placeholder:text-sm",
-                      error && "ring-2 ring-red-500 focus-visible:ring-red-500",
-                    )}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field, fieldState: { error } }) => (
+            <FormItem className="flex flex-col gap-2 space-y-0">
+              <FormLabel className="text-md text-left font-medium">
+                Пароль <span className="text-red-600">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="Пароль"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button type="submit" className="w-full text-white sm:w-fit">
           Войти
@@ -114,4 +109,4 @@ export const SignInForm = () => {
       </Box>
     </Form>
   );
-};
+}

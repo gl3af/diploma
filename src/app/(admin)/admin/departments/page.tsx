@@ -1,22 +1,15 @@
+import { Building } from "lucide-react";
+
 import { AdminContent } from "@/layouts";
 import { Box } from "@/shared/ui";
 import { api } from "@/trpc/server";
-import {
-  DepartmentsHeader,
-  DepartmentsList,
-  DepartmentsSearch,
-} from "@/widgets/departments";
-import { Building } from "lucide-react";
+import { DepartmentsHeader, DepartmentsList, DepartmentsSearch } from "@/widgets/departments";
 
 type SearchParams = {
   query: string | null;
 };
 
-export default async function Departments({
-  searchParams,
-}: {
-  searchParams?: SearchParams;
-}) {
+export default async function Departments({ searchParams }: { searchParams?: SearchParams }) {
   const departments = await api.departments.getAll.query({
     query: searchParams?.query ?? "",
   });

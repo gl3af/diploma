@@ -1,5 +1,8 @@
 "use client";
 
+import { type Session } from "next-auth";
+import Link from "next/link";
+
 import { SignInForm, SignUpForm } from "@/features/auth";
 import {
   Button,
@@ -13,21 +16,15 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
-import { type Session } from "next-auth";
-import Link from "next/link";
 
-export const AuthDialog = ({ session }: { session: Session | null }) => {
-  if (!!session)
+export function AuthDialog({ session }: { session: Session | null }) {
+  if (session) {
     return (
-      <Button
-        variant="outline"
-        size="lg"
-        className="rounded-xl text-lg"
-        asChild
-      >
+      <Button variant="outline" size="lg" className="rounded-xl text-lg" asChild>
         <Link href="/home">Войти</Link>
       </Button>
     );
+}
 
   return (
     <Dialog>
@@ -44,17 +41,13 @@ export const AuthDialog = ({ session }: { session: Session | null }) => {
           </TabsList>
           <TabsContent value="sign-in">
             <DialogHeader className="flex flex-col gap-2">
-              <DialogTitle className="text-xl">
-                Войдите для продолжения работы
-              </DialogTitle>
+              <DialogTitle className="text-xl">Войдите для продолжения работы</DialogTitle>
               <SignInForm />
             </DialogHeader>
           </TabsContent>
           <TabsContent value="register">
             <DialogHeader className="flex flex-col gap-2">
-              <DialogTitle className="text-xl">
-                Зарегистрируйтесь для начала работы
-              </DialogTitle>
+              <DialogTitle className="text-xl">Зарегистрируйтесь для начала работы</DialogTitle>
               <SignUpForm />
             </DialogHeader>
           </TabsContent>
@@ -62,4 +55,4 @@ export const AuthDialog = ({ session }: { session: Session | null }) => {
       </DialogContent>
     </Dialog>
   );
-};
+}

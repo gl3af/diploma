@@ -1,6 +1,7 @@
-import { AdminContent } from "@/layouts";
 import { SquareUserRound } from "lucide-react";
 import React from "react";
+
+import { AdminContent } from "@/layouts";
 
 export default function Admin() {
   return (

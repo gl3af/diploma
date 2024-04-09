@@ -1,16 +1,17 @@
-import routes from "./data";
-import adminRoutes from "./admin-data";
-import { Route } from "../route";
 import { cn } from "@/shared/utils";
 import { Box } from "@/shared/ui";
 
-export const Routes = ({
+import routes from "./data";
+import adminRoutes from "./admin-data";
+import { Route } from "../route";
+
+export function Routes({
   displayLabels = false,
   isAdmin = false,
 }: {
   displayLabels?: boolean;
   isAdmin?: boolean;
-}) => {
+}) {
   const data = isAdmin ? adminRoutes : routes;
   return (
     <Box as="nav">
@@ -21,15 +22,10 @@ export const Routes = ({
             className={cn("ml-0 pl-0", !isAdmin && "last:border-t-2 last:pt-4")}
             key={href}
           >
-            <Route
-              label={label}
-              href={href}
-              icon={icon}
-              displayLabels={displayLabels}
-            />
+            <Route label={label} href={href} icon={icon} displayLabels={displayLabels} />
           </Box>
         ))}
       </Box>
     </Box>
   );
-};
+}

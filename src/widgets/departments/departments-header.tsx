@@ -1,8 +1,7 @@
 import { CreateDialog } from "@/features/departments";
 import { Box, Title } from "@/shared/ui";
-import React from "react";
 
-export const DepartmentsHeader = () => {
+export function DepartmentsHeader() {
   return (
     <Box className="flex items-center justify-between">
       <Title order={2} className="text-2xl font-semibold">
@@ -11,4 +10,4 @@ export const DepartmentsHeader = () => {
       <CreateDialog />
     </Box>
   );
-};
+}

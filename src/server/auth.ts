@@ -1,10 +1,9 @@
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { getServerSession, type NextAuthOptions, type DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
-import { type DefaultSession } from "next-auth";
 
 declare module "next-auth" {
   interface User {
@@ -34,12 +33,13 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     jwt: async ({ user, token }) => {
-      if (user)
+      if (user) {
         return {
           ...token,
           id: user.id,
           role: user.role,
         };
+      }
 
       return token;
     },
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials, _request) => {
+      authorize: async (credentials) => {
         const { email, password } = credentials as {
           email: string;
           password: string;
@@ -74,7 +74,6 @@ export const authOptions: NextAuthOptions = {
 
         if (!user) throw new Error("email:Пользователь не найден");
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) throw new Error("password:Неверный пароль");
 

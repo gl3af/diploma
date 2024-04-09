@@ -1,5 +1,6 @@
-import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
+
+import { getServerAuthSession } from "@/server/auth";
 import { Box, Container } from "@/shared/ui";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
@@ -11,11 +12,7 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerAuthSession();
   if (session?.user.role !== "admin") redirect("/");
 

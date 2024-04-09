@@ -1,7 +1,8 @@
 import { X } from "lucide-react";
-import { type ButtonProps } from "../button";
 import React from "react";
 import { Slot } from "@radix-ui/react-slot";
+
+import { type ButtonProps } from "../button";
 
 export const DeleteIcon = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ asChild = false, ...props }, ref) => {
@@ -17,7 +18,7 @@ export const DeleteIcon = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <X size={24} className="cursor-pointer text-red-600" />
       </Comp>
     );
-  },
+  }
 );
 
 DeleteIcon.displayName = "DeleteIcon";

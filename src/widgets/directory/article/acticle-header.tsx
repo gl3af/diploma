@@ -1,12 +1,11 @@
 import { Badge, Box, Text, Title } from "@/shared/ui";
 import { type RouterOutputs } from "@/trpc/shared";
-import React from "react";
 
 type ArticleHeaderProps = {
   article: RouterOutputs["articles"]["getArticle"];
 };
 
-export const ArticleHeader = ({ article }: ArticleHeaderProps) => {
+export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <Box className="grid gap-2">
       <Text className="text-muted-foreground">{`Тема: ${article?.Theme?.name}`}</Text>
@@ -16,4 +15,4 @@ export const ArticleHeader = ({ article }: ArticleHeaderProps) => {
       <Badge className="w-fit">Статья</Badge>
     </Box>
   );
-};
+}
