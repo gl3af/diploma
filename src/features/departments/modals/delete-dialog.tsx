@@ -16,7 +16,7 @@ import {
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
-export function DeleteDialog({ id }: { id: string }) {
+export function DeleteDialog({ id }: { id: number }) {
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
 

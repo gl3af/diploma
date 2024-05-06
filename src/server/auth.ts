@@ -7,17 +7,18 @@ import { db } from "@/server/db";
 
 declare module "next-auth" {
   interface User {
+    id: number;
     role: "admin" | "user";
   }
   interface Session {
     user: {
-      id: string;
+      id: number;
       role: "admin" | "user";
     } & DefaultSession["user"];
   }
 
   interface JWT {
-    id: string;
+    id: number;
     role: "admin" | "user";
   }
 }

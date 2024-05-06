@@ -15,7 +15,7 @@ export const EditIcon = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <Pencil size={20} className="cursor-pointer" />
+        <Pencil size={20} className="cursor-pointer transition-opacity hover:opacity-70" />
       </Comp>
     );
   }

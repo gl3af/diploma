@@ -9,7 +9,7 @@ import { api } from "@/trpc/react";
 
 import { $Schema, Template } from "./template";
 
-export function EditForm({ id, name }: { id: string; name: string }) {
+export function EditForm({ id, name }: { id: number; name: string }) {
   const form = useForm<z.infer<typeof $Schema>>({
     resolver: zodResolver($Schema),
     defaultValues: {

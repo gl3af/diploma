@@ -1,4 +1,3 @@
-/* eslint-disable operator-linebreak */
 import { PrismaClient } from "@prisma/client";
 
 import { env } from "@/env";

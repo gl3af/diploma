@@ -8,5 +8,5 @@ export function Container({
   className?: string;
   children: React.ReactNode;
 }) {
-  return <Box className={cn("container h-full", className)}>{children}</Box>
+  return <Box className={cn("container h-full", className)}>{children}</Box>;
 }

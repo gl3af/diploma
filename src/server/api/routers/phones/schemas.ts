@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const $SingleItemSchema = z.object({
-  id: z.string(),
+  id: z.number(),
 });
 
 export const $CreateSchema = z.object({
@@ -12,7 +12,7 @@ export const $CreateSchema = z.object({
 });
 
 export const $UpdateSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   department: z.string(),
   fullName: z.string(),
   position: z.string(),

@@ -9,7 +9,7 @@ export async function Sidebar() {
   return (
     <Box
       as="aside"
-      className="sm:align-center hidden w-fit p-4 sm:flex lg:min-w-fit"
+      className="sm:align-center sticky top-8 hidden h-fit w-fit sm:flex lg:min-w-[225px]"
     >
       <Routes isAdmin={isAdmin} />
     </Box>

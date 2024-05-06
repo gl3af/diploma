@@ -13,7 +13,6 @@ type ContentProps = {
 export async function Content({ title, icon, children, requiresAuth = false }: ContentProps) {
   const session = await getServerAuthSession();
   if (!session && requiresAuth) redirect("/");
-  if (session?.user.role === "admin") redirect("/admin");
 
   return (
     <Box as="main" className="flex w-full flex-col gap-8 p-6">

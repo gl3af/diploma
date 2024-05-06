@@ -22,9 +22,9 @@ export function EditForm({ item }: EditFormProps) {
     resolver: zodResolver($CreateSchema),
     defaultValues: {
       phoneNumber,
-      position: position.name,
+      position: position?.name ?? "",
       fullName,
-      department: department.name,
+      department: department?.name ?? "",
     },
   });
 
