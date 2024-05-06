@@ -15,12 +15,16 @@ enum Role {
 model User {
     id Int @id @default(autoincrement())
 
+    email    String @unique
+    password String
+
     name       String?
     surname    String?
     middlename String?
 
-    email    String @unique
-    password String
+    age       Int?
+    sex       String?
+    education String?
 
     registrationCompleted Boolean @default(false)
     verified              Boolean @default(false)

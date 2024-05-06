@@ -17,7 +17,7 @@ export function Route({ href, label, icon, displayLabels }: RouteProps) {
     <Link href={href} className="group flex items-center gap-4 " title={label} passHref>
       <Box
         className={cn(
-          "rounded-full p-3  transition-all ease-linear group-hover:bg-secondary",
+          "rounded-full p-3 transition-all ease-linear group-hover:bg-secondary",
           pathname.includes(href) && "bg-secondary"
         )}
       >

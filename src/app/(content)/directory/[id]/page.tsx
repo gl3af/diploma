@@ -19,7 +19,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
   const { label, icon } = directory;
 
   return (
-    <Content title={label} icon={icon}>
+    <Content title={label} icon={icon} requiresAuth>
       <ArticleInfo initialData={article} id={id} />
     </Content>
   );
