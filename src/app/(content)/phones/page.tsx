@@ -1,4 +1,4 @@
-import { AdminContent } from "@/layouts";
+import { Content } from "@/layouts";
 import { Box } from "@/shared/ui";
 import { api } from "@/trpc/server";
 import { PhonesFilter, PhonesHeader, PhonesList } from "@/widgets/phones";
@@ -17,12 +17,12 @@ export default async function Phones({ searchParams }: { searchParams: SearchPar
   const { label, icon } = phones;
 
   return (
-    <AdminContent title={label} icon={icon}>
+    <Content title={label} icon={icon} requiresAuth>
       <Box className="grid gap-6">
         <PhonesHeader />
         <PhonesFilter />
         <PhonesList initialData={phonesData} />
       </Box>
-    </AdminContent>
+    </Content>
   );
 }

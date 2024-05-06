@@ -14,6 +14,7 @@ import {
   FormMessage,
   Input,
   Button,
+  Box,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
@@ -51,7 +52,7 @@ export function SignUpForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -100,7 +101,7 @@ export function SignUpForm() {
         <Button type="submit" className="w-full text-white sm:w-fit">
           Войти
         </Button>
-      </form>
+      </Box>
     </Form>
   );
 }
