@@ -8,7 +8,7 @@ type ArticleHeaderProps = {
 export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <Box className="grid gap-2">
-      <Text className="text-muted-foreground">{`Тема: ${article?.Theme?.name}`}</Text>
+      <Text className="text-muted-foreground">{`Тема: ${article?.theme?.name}`}</Text>
       <Title order={2} className="text-3xl font-extrabold">
         {article?.name}
       </Title>

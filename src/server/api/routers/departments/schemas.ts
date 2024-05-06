@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const $DeleteSchema = z.object({
-  id: z.string(),
+  id: z.number(),
 });
 
 export const $GetAllSchema = z
@@ -15,7 +15,7 @@ export const $CreateSchema = z.object({
 });
 
 export const $UpdateSchema = $CreateSchema.extend({
-  id: z.string(),
+  id: z.number(),
 });
 
 export const $GetByNameSchema = z.object({

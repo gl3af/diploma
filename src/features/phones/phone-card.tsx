@@ -14,8 +14,8 @@ export function PhoneCard({ item }: PhoneCardProps) {
     <Card className="flex flex-col gap-3 rounded-xl p-3 sm:p-5">
       <Box className="flex items-center justify-between">
         <Box className="flex items-center gap-2">
-          <Badge className="w-fit">{department.name}</Badge>
-          <Badge className="w-fit">{position.name}</Badge>
+          <Badge className="w-fit">{department?.name}</Badge>
+          <Badge className="w-fit">{position?.name}</Badge>
         </Box>
         <PhoneActions item={item} />
       </Box>

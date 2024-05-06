@@ -30,10 +30,10 @@ export const phonesRouter = createTRPCRouter({
 
     return data;
   }),
-  delete: protectedProcedure.input($SingleItemSchema).mutation(async ({ input, ctx }) =>
+  delete: protectedProcedure.input($SingleItemSchema).mutation(async ({ input: { id }, ctx }) =>
     ctx.db.phone.delete({
       where: {
-        id: input.id,
+        id,
       },
     })
   ),
@@ -49,7 +49,7 @@ export const phonesRouter = createTRPCRouter({
     const position = await db.position.findFirst({
       where: {
         name: input.position,
-        departmentId: department?.id ?? "",
+        departmentId: department?.id,
       },
     });
 
@@ -71,6 +71,7 @@ export const phonesRouter = createTRPCRouter({
   }),
   update: protectedProcedure.input($UpdateSchema).mutation(async ({ input, ctx }) => {
     const { db } = ctx;
+    const { id, ...data } = input;
 
     const department = await db.department.findFirst({
       where: {
@@ -87,10 +88,10 @@ export const phonesRouter = createTRPCRouter({
 
     return ctx.db.phone.update({
       where: {
-        id: input.id,
+        id,
       },
       data: {
-        ...input,
+        ...data,
         department: {
           connect: {
             id: department?.id,

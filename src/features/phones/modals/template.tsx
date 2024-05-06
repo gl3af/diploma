@@ -19,6 +19,7 @@ export function Template({ children, icon, title }: PropsWithChildren<TemplatePr
 
     router.replace(`${pathname}?${createQueryString(null, "dept")}`);
   };
+
   return (
     <Dialog onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{icon}</DialogTrigger>

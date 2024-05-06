@@ -15,7 +15,7 @@ export const DeleteIcon = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <X size={24} className="cursor-pointer text-red-600" />
+        <X size={24} className="cursor-pointer text-red-600 transition-opacity hover:opacity-70" />
       </Comp>
     );
   }

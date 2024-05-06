@@ -46,8 +46,10 @@ export function CreateArticleForm() {
   const { mutateAsync: create, isLoading } = api.articles.createArticle.useMutation();
 
   const onSubmit = async (values: CreateArticle) => {
-    const themeId = searchParams.get("themeId");
-    if (!themeId) return;
+    const themeIdQuery = searchParams.get("themeId");
+    const themeId = Number(themeIdQuery);
+
+    if (Number.isNaN(themeId)) return;
 
     await create(
       { ...values, themeId },

@@ -7,7 +7,7 @@ import { Box, Button } from "@/shared/ui";
 
 import { DeleteThemeModal } from "../modals";
 
-export function ThemeActions({ themeId }: { themeId: string }) {
+export function ThemeActions({ themeId }: { themeId: number }) {
   const { data } = useSession();
   if (data?.user.role !== "admin") return null;
 

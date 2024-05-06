@@ -20,7 +20,7 @@ export const articlesRouter = createTRPCRouter({
         id: input.id,
       },
       include: {
-        Theme: true,
+        theme: true,
       },
     })
   ),

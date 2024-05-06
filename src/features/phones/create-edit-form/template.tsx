@@ -32,76 +32,74 @@ type TemplateProps = {
   buttonRef: MutableRefObject<HTMLButtonElement | null>;
 };
 
-export function Template({
-  form,
-  onSubmit,
-  buttonContent,
-  isLoading,
-  buttonRef,
-}: TemplateProps) {
-  return <Form {...form}>
-    <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-      <FormField
-        control={form.control}
-        name="fullName"
-        render={({ field, fieldState }) => (
-          <FormItem className="flex flex-col gap-2 space-y-0">
-            <FormLabel className="text-md text-left font-medium">
-              ФИО <span className="text-red-600">*</span>
-            </FormLabel>
-            <FormControl>
-              <Input
-                {...field}
-                placeholder="Иванов Иван Иванович"
-                className={cn(
-                  "text-md font-medium placeholder:text-sm",
-                  fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500"
-                )}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="department"
-        render={({ field, fieldState }) => (
-          <DepartmentSelect field={field} fieldState={fieldState} />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="position"
-        render={({ field, fieldState }) => <PositionSelect field={field} fieldState={fieldState} />}
-      />
-      <FormField
-        control={form.control}
-        name="phoneNumber"
-        render={({ field, fieldState: { error } }) => (
-          <FormItem className="flex flex-col gap-2 space-y-0">
-            <FormLabel className="text-md text-left font-medium">
-              Номер телефона <span className="text-red-600">*</span>
-            </FormLabel>
-            <FormControl>
-              <Input
-                {...field}
-                type="tel"
-                placeholder="+79999999999"
-                className={cn(
-                  "text-md font-medium placeholder:text-sm",
-                  error && "ring-2 ring-red-500 focus-visible:ring-red-500"
-                )}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button type="submit" className="w-full text-white sm:w-fit">
-        <Button disabled={isLoading}>{isLoading ? <Loader /> : buttonContent}</Button>
-      </Button>
-      <DialogClose ref={buttonRef} className="hidden" />
-    </Box>
-  </Form>
+export function Template({ form, onSubmit, buttonContent, isLoading, buttonRef }: TemplateProps) {
+  return (
+    <Form {...form}>
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="fullName"
+          render={({ field, fieldState }) => (
+            <FormItem className="flex flex-col gap-2 space-y-0">
+              <FormLabel className="text-md text-left font-medium">
+                ФИО <span className="text-red-600">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Иванов Иван Иванович"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    fieldState.error && "ring-2 ring-red-500 focus-visible:ring-red-500"
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="department"
+          render={({ field, fieldState }) => (
+            <DepartmentSelect field={field} fieldState={fieldState} />
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="position"
+          render={({ field, fieldState }) => (
+            <PositionSelect field={field} fieldState={fieldState} />
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phoneNumber"
+          render={({ field, fieldState: { error } }) => (
+            <FormItem className="flex flex-col gap-2 space-y-0">
+              <FormLabel className="text-md text-left font-medium">
+                Номер телефона <span className="text-red-600">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="tel"
+                  placeholder="+79999999999"
+                  className={cn(
+                    "text-md font-medium placeholder:text-sm",
+                    error && "ring-2 ring-red-500 focus-visible:ring-red-500"
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full text-white sm:w-fit" disabled={isLoading}>
+          {isLoading ? <Loader /> : buttonContent}
+        </Button>
+        <DialogClose ref={buttonRef} className="hidden" />
+      </Box>
+    </Form>
+  );
 }

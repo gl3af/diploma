@@ -3,11 +3,7 @@ import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import { Sidebar } from "@/widgets/sidebar";
 
-export default async function ContentLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function ContentLayout({ children }: { children: React.ReactNode }) {
   return (
     <Box className="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <Header />

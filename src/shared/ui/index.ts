@@ -21,3 +21,5 @@ export * from "./accordion";
 export * from "./textarea";
 export * from "./html-content";
 export * from "./not-found-content";
+export * from "./calendar";
+export * from "./popover";

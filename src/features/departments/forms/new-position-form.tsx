@@ -26,7 +26,7 @@ const $Schema = z.object({
     .min(1, { message: "Введите название должности" }),
 });
 
-export function NewPositionForm({ id }: { id: string }) {
+export function NewPositionForm({ id }: { id: number }) {
   const form = useForm<z.infer<typeof $Schema>>({
     resolver: zodResolver($Schema),
     defaultValues: {
