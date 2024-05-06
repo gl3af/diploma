@@ -5,7 +5,7 @@ export function PlanHeader({ planId }: { planId: number }) {
   return (
     <Box className="flex items-center justify-between">
       <Title order={2} className="text-xl font-semibold md:text-2xl">
-        Модерация плана работ
+        Просмотр плана работ
       </Title>
       <PlanActions planId={planId} />
     </Box>

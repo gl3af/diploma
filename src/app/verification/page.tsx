@@ -6,8 +6,8 @@ import { api } from "@/trpc/server";
 export default async function VerificationPage() {
   const userData = await api.auth.getProfile.query();
 
-  if (!userData?.registrationCompleted) redirect("/registration");
-  if (userData?.verified) redirect("/home");
+  if (!!userData && !userData.registrationCompleted) redirect("/registration");
+  if (!!userData && userData.verified) redirect("/home");
 
   return (
     <Box as="main" className="flex h-full min-h-screen items-center justify-center p-4">

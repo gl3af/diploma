@@ -7,8 +7,8 @@ import { Registration } from "@/widgets/auth";
 export default async function RegistrationPage() {
   const userData = await api.auth.getProfile.query();
 
-  if (userData?.registrationCompleted) redirect("/home");
-  if (!userData?.verified) redirect("/verification");
+  if (!!userData && userData.registrationCompleted) redirect("/home");
+  if (!!userData && !userData.verified) redirect("/verification");
 
   return (
     <Container className="min-h-screen">
