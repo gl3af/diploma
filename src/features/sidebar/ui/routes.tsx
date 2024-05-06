@@ -16,7 +16,7 @@ export function Routes({
   const data = useSidebar();
 
   return (
-    <Box as="nav" className="p-4">
+    <Box as="nav" className="py-4">
       <Box as="ul" className="ml-0 grid list-none gap-6">
         {data.map(({ label, href, icon }) => (
           <Box

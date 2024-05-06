@@ -29,10 +29,7 @@ export function PlanCard({ plan }: PlanCardProps) {
       <Card className="rounded-lg">
         <CardHeader>
           <Box className="flex flex-wrap items-center gap-2">
-            <Link href={`${href}/${id}`}>
-              <Badge className="w-fit">{id}</Badge>
-            </Link>
-
+            <Badge className="w-fit">{id}</Badge>
             <Badge className="w-fit" variant="secondary">
               {format(deadline, "dd.MM.yyyy")}
             </Badge>

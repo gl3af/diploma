@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { cn } from "@/shared/utils";
 import { Box, Toaster } from "@/shared/ui";
 import { QueryParamsProvider, SessionProvider, ThemeProvider } from "@/providers";
+import { getServerAuthSession } from "@/server/auth";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
@@ -19,6 +20,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerAuthSession();
+
   return (
     <Box as="html" lang="en">
       <Box as="body" className={cn("min-h-screen bg-background antialiased", montserrat.className)}>
@@ -30,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             disableTransitionOnChange
           >
             <QueryParamsProvider>
-              <SessionProvider>{children}</SessionProvider>
+              <SessionProvider session={session}>{children}</SessionProvider>
             </QueryParamsProvider>
           </ThemeProvider>
         </TRPCReactProvider>

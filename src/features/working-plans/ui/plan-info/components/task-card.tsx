@@ -24,7 +24,7 @@ export function TaskCard({ task }: TaskCardProps) {
       <Card className="rounded-xl">
         <CardHeader>
           <Box className="flex flex-wrap items-center gap-2">
-            <Badge className="w-fit underline">{id}</Badge>
+            <Badge className="w-fit">{id}</Badge>
             <Badge className="w-fit" variant="secondary">
               {format(deadline, "dd.MM.yyyy")}
             </Badge>

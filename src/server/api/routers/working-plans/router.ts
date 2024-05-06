@@ -9,8 +9,10 @@ import {
 
 export const workingPlansRouter = createTRPCRouter({
   getAll: protectedProcedure.input($GetAllSchema).query(async ({ ctx, input }) => {
-    const { db } = ctx;
+    const { db, session } = ctx;
     const query = input?.query ?? "";
+
+    const isAdmin = session.user.role === "admin";
 
     const data = await db.workingPlan.findMany({
       include: {
@@ -52,10 +54,16 @@ export const workingPlansRouter = createTRPCRouter({
 
     if (!data) return [];
 
-    return data.map((item) => ({
-      ...item,
-      tasks: item.tasks.filter((task) => !task.parentTaskId) ?? [],
-    }));
+    return data
+      .map((item) => ({
+        ...item,
+        tasks: item.tasks.filter((task) => !task.parentTaskId) ?? [],
+      }))
+      .filter((item) => {
+        if (isAdmin) return true;
+
+        return item.userId === session.user.id;
+      });
   }),
   getSingle: protectedProcedure.input($GetSingleSchema).query(async ({ ctx, input }) => {
     const { db } = ctx;
