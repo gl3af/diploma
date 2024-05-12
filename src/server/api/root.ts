@@ -4,7 +4,6 @@ import {
   authRouter,
   departmentsRouter,
   directoryRouter,
-  phonesRouter,
   workingPlansRouter,
   usersRouter,
   tasksRouter,
@@ -13,7 +12,6 @@ import {
 
 export const appRouter = createTRPCRouter({
   auth: authRouter,
-  phones: phonesRouter,
   departments: departmentsRouter,
   directory: directoryRouter,
   articles: articlesRouter,
