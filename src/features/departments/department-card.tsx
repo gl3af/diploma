@@ -1,23 +1,35 @@
-import { Box, Card } from "@/shared/ui";
-import { type RouterOutputs } from "@/trpc/shared";
+import Link from "next/link";
 
-import { CardHeader, PositionsList } from "./ui";
-import { NewPositionForm } from "./forms";
+import { Text, Card, CardContent, Box, CardHeader, Badge } from "@/shared/ui";
+import { type RouterOutputs } from "@/trpc/shared";
+import { getRoutes } from "@/shared/utils";
 
 type DepartmentCardProps = {
-  item: RouterOutputs["departments"]["getAll"][number];
+  department: RouterOutputs["departments"]["getAll"][number];
 };
 
-export function DepartmentCard({ item }: DepartmentCardProps) {
-  const { id, name, positions } = item;
+export function DepartmentCard({ department }: DepartmentCardProps) {
+  const { id, name, description } = department;
+
+  const {
+    departments: { href },
+  } = getRoutes();
+
+  const link = `${href}/${id}`;
 
   return (
-    <Card className="space-y-3 rounded-xl p-3 ">
-      <CardHeader id={id} name={name} />
-      <Box className="space-y-3 rounded-md border p-3">
-        <PositionsList positions={positions} />
-        <NewPositionForm id={id} />
-      </Box>
-    </Card>
+    <Link href={link} className="transition-opacity hover:opacity-90">
+      <Card className="rounded-xl">
+        <CardHeader>
+          <Badge className="w-fit">{id}</Badge>
+        </CardHeader>
+        <CardContent>
+          <Box className="space-y-2">
+            <Text className="text-xl font-semibold">{name}</Text>
+            <Text className="font-medium text-muted-foreground">{description}</Text>
+          </Box>
+        </CardContent>
+      </Card>
+    </Link>
   );
 }

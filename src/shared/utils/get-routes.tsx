@@ -1,9 +1,8 @@
-import { Book, Briefcase, Building, Phone, Settings, SquareUserRound, User } from "lucide-react";
+import { Book, Briefcase, Building, Settings, SquareUserRound, User } from "lucide-react";
 
 const routesData = [
   "home",
   "departments",
-  "phones",
   "directory",
   "workingPlans",
   "users",
@@ -36,12 +35,6 @@ export const getRoutes = (size?: number): Routes =>
       href: "/departments",
       label: "Отделы",
       icon: <Building size={size} />,
-      roles: ["admin", "user"],
-    },
-    phones: {
-      href: "/phones",
-      label: "Телефоны",
-      icon: <Phone size={size} />,
       roles: ["admin", "user"],
     },
     directory: {

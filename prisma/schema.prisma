@@ -33,43 +33,13 @@ model User {
     workingPlans WorkingPlan[]
 }
 
-// TODO: Rework
-model Phone {
-    id Int @id @default(autoincrement())
-
-    fullName    String
-    phoneNumber String @unique
-
-    position   Position?   @relation(fields: [positionId], references: [id], onDelete: Cascade)
-    department Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-
-    positionId   Int?
-    departmentId Int?
-}
-
-// TODO: Rework
-model Position {
-    id Int @id @default(autoincrement())
-
-    name String
-
-    department   Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-    departmentId Int?
-
-    phone Phone[]
-
-    @@unique([name, departmentId])
-}
-
-// TODO: Rework
 model Department {
     id Int @id @default(autoincrement())
 
-    name String @unique
+    name        String @unique
+    description String
 
-    positions Position[]
-    phones    Phone[]
-    workers   Worker[]
+    workers Worker[]
 }
 
 model Worker {
@@ -77,10 +47,12 @@ model Worker {
 
     name       String
     surname    String
-    middlename String
+    middlename String?
+    position   String
 
-    position     String
-    department   Department @relation(fields: [departmentId], references: [id])
+    contactNumber String
+
+    department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
     departmentId Int
 }
 
@@ -135,8 +107,8 @@ model WorkingPlan {
     description String?
     deadline    DateTime
 
-    user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId Int?
+    user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId Int
 
     tasks Task[]
 

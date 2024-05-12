@@ -3,16 +3,13 @@ import {
   $CreateSchema,
   $DeleteSchema,
   $GetAllSchema,
-  $GetByNameSchema,
+  $GetSingleSchema,
   $UpdateSchema,
 } from "./schemas";
 
 export const departmentsRouter = createTRPCRouter({
   getAll: protectedProcedure.input($GetAllSchema).query(async ({ input, ctx }) =>
     ctx.db.department.findMany({
-      include: {
-        positions: true,
-      },
       where: {
         name: {
           contains: input?.query ?? "",
@@ -21,13 +18,13 @@ export const departmentsRouter = createTRPCRouter({
       },
     })
   ),
-  getByName: protectedProcedure.input($GetByNameSchema).query(async ({ input, ctx }) =>
+  getSingle: protectedProcedure.input($GetSingleSchema).query(async ({ input, ctx }) =>
     ctx.db.department.findFirst({
-      include: {
-        positions: true,
-      },
       where: {
-        name: input.name ?? "",
+        id: input.id,
+      },
+      include: {
+        workers: true,
       },
     })
   ),
@@ -35,7 +32,7 @@ export const departmentsRouter = createTRPCRouter({
     ctx.db.department.create({
       data: {
         ...input,
-        positions: {},
+        workers: {},
       },
     })
   ),
@@ -44,43 +41,14 @@ export const departmentsRouter = createTRPCRouter({
       where: {
         id: input.id,
       },
-      data: {
-        name: input.name,
+      data: input,
+    })
+  ),
+  delete: protectedProcedure.input($DeleteSchema).mutation(async ({ input, ctx }) =>
+    ctx.db.department.delete({
+      where: {
+        id: input.id,
       },
     })
   ),
-  delete: protectedProcedure.input($DeleteSchema).mutation(async ({ input, ctx }) => {
-    await ctx.db.position.deleteMany({
-      where: {
-        departmentId: input.id,
-      },
-    });
-
-    return ctx.db.department.delete({
-      where: {
-        id: input.id,
-      },
-    });
-  }),
-  addPosition: protectedProcedure.input($UpdateSchema).mutation(async ({ input, ctx }) => {
-    const position = await ctx.db.position.create({
-      data: {
-        name: input.name,
-        departmentId: input.id,
-      },
-    });
-
-    return ctx.db.department.update({
-      where: {
-        id: input.id,
-      },
-      data: {
-        positions: {
-          connect: {
-            id: position.id,
-          },
-        },
-      },
-    });
-  }),
 });

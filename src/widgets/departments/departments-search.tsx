@@ -1,28 +1,23 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { StringParam, useQueryParam } from "use-query-params";
 
-import { useDebouncedFunc, useCreateQueryString } from "@/shared/hooks";
+import { useDebouncedFunc } from "@/shared/hooks";
 import { Input } from "@/shared/ui";
 
 export function DepartmentsSearch() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const [query, setQuery] = useQueryParam("query", StringParam);
 
-  const createQueryString = useCreateQueryString();
-
-  const onChange = useDebouncedFunc((e: React.ChangeEvent<HTMLInputElement>) => {
-    router.replace(`${pathname}?${createQueryString(e.target.value)}`);
-  }, 500);
-
-  const query = searchParams.get("query") ?? "";
+  const onChange = useDebouncedFunc(
+    (e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value),
+    500
+  );
 
   return (
     <Input
       placeholder="Поиск"
       className="rounded-xl py-6 text-lg caret-primary placeholder:text-lg"
-      defaultValue={query}
+      defaultValue={query ?? ""}
       onChange={onChange}
     />
   );

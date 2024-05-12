@@ -15,14 +15,14 @@ export async function Content({ title, icon, children, requiresAuth = false }: C
   if (!session && requiresAuth) redirect("/");
 
   return (
-    <Box as="main" className="flex w-full flex-col gap-8 p-6">
+    <Box as="main" className="flex w-full flex-col gap-4 p-3 md:gap-8 md:p-6">
       <Box className="flex items-center gap-4">
         {icon}
         <Title order={1} className="text-2xl font-bold leading-normal lg:text-3xl">
           {title}
         </Title>
       </Box>
-      <Box className="h-full rounded-xl bg-secondary p-6">{children}</Box>
+      <Box className="h-full rounded-xl bg-secondary p-4 md:p-6">{children}</Box>
     </Box>
   );
 }

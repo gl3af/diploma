@@ -17,7 +17,7 @@ export async function MobileSidebar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="flex w-full flex-col gap-6 py-12">
-        <SheetHeader className="pl-3">
+        <SheetHeader className="pl-6">
           <Logo />
         </SheetHeader>
         <Routes displayLabels isAdmin={isAdmin} />
