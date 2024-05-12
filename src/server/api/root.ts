@@ -8,6 +8,7 @@ import {
   workingPlansRouter,
   usersRouter,
   tasksRouter,
+  workersRouter,
 } from "./routers";
 
 export const appRouter = createTRPCRouter({
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   workingPlans: workingPlansRouter,
   users: usersRouter,
   tasks: tasksRouter,
+  workers: workersRouter,
 });
 
 export type AppRouter = typeof appRouter;

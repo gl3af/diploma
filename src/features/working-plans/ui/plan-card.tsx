@@ -7,7 +7,7 @@ import { Badge, Box, Card, CardContent, CardFooter, CardHeader, Text } from "@/s
 import { RouterOutputs } from "@/trpc/shared";
 import { getRoutes } from "@/shared/utils";
 
-import { getFullName } from "../utils";
+import { withFullName } from "../utils";
 import { IconedText } from "./iconed-text";
 
 type PlanCardProps = {
@@ -20,7 +20,7 @@ export function PlanCard({ plan }: PlanCardProps) {
   } = getRoutes();
 
   const { user, name, id, deadline, createdAt, updatedAt, description, tasks } = plan;
-  const userWithFullName = getFullName(user);
+  const userWithFullName = withFullName(user);
 
   const isDeadlineExpired = deadline < new Date();
 

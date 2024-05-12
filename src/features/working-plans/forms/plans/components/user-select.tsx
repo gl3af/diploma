@@ -15,7 +15,7 @@ import {
 import { api } from "@/trpc/react";
 
 import { ComponentsProps } from "./type";
-import { getFullName } from "../../../utils";
+import { withFullName } from "../../../utils";
 
 export function UserSelect({ field, fieldState }: ComponentsProps<"userId">) {
   const { data: basicUsers = [], isLoading } = api.users.getAllBasic.useQuery();
@@ -41,7 +41,7 @@ export function UserSelect({ field, fieldState }: ComponentsProps<"userId">) {
           <SelectGroup>
             <SelectLabel>Исполнители</SelectLabel>
             {basicUsers.map((user) => {
-              const { id, fullName } = getFullName(user);
+              const { id, fullName } = withFullName(user);
               return (
                 <SelectItem key={id} value={String(id)} className="font-medium">
                   {`${id}) ${fullName}`}

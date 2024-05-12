@@ -8,7 +8,7 @@ type WithFullName<T> = T & {
   fullName: string;
 };
 
-export function getFullName<User extends UserData>(user: User): WithFullName<User> {
+export function withFullName<User extends UserData>(user: User): WithFullName<User> {
   return {
     ...user,
     fullName: `${user?.surname} ${user?.name} ${user?.middlename}`,

@@ -2,7 +2,7 @@ import { Calendar, CalendarFold, CalendarPlus, UserRound } from "lucide-react";
 import { format } from "date-fns";
 
 import { Box } from "@/shared/ui";
-import { getFullName } from "@/features/working-plans/utils";
+import { withFullName } from "@/features/working-plans/utils";
 
 import { type PlanType } from "../type";
 import { IconedText } from "../../iconed-text";
@@ -10,7 +10,7 @@ import { IconedText } from "../../iconed-text";
 type InfoMetaProps = Pick<PlanType, "deadline" | "user" | "createdAt" | "updatedAt">;
 
 export function InfoMeta({ deadline, user, createdAt, updatedAt }: InfoMetaProps) {
-  const userWithFullName = getFullName(user);
+  const userWithFullName = withFullName(user);
 
   return (
     <Box className="grid gap-3">

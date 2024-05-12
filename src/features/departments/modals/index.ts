@@ -1,3 +1,3 @@
-export * from "./create-dialog";
-export * from "./edit-dalog";
-export * from "./delete-dialog";
+export * from "./create-department-modal";
+export * from "./edit-department-modal";
+export * from "./delete-department-modal";
