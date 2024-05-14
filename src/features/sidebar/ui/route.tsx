@@ -14,7 +14,7 @@ export function Route({ href, label, icon, displayLabels }: RouteProps) {
   const pathname = usePathname();
 
   return (
-    <Link href={href} className="group flex items-center gap-4" title={label} passHref>
+    <Link href={href} className="group flex items-center gap-4" title={label}>
       <Box
         className={cn(
           "rounded-full p-3 transition-all ease-linear group-hover:bg-secondary",
