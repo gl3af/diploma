@@ -1,4 +1,4 @@
-import { withFullName } from "@/features/working-plans/utils";
+import { withFullName } from "@/shared/utils";
 import { Badge, Box, Card, CardContent, CardHeader, Text } from "@/shared/ui";
 
 import { DepartmentWorker } from "../type";

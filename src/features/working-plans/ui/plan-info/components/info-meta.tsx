@@ -2,7 +2,7 @@ import { Calendar, CalendarFold, CalendarPlus, UserRound } from "lucide-react";
 import { format } from "date-fns";
 
 import { Box } from "@/shared/ui";
-import { withFullName } from "@/features/working-plans/utils";
+import { withFullName } from "@/shared/utils";
 
 import { type PlanType } from "../type";
 import { IconedText } from "../../iconed-text";

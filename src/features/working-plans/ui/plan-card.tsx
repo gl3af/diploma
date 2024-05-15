@@ -5,9 +5,8 @@ import Link from "next/link";
 
 import { Badge, Box, Card, CardContent, CardFooter, CardHeader, Text } from "@/shared/ui";
 import { RouterOutputs } from "@/trpc/shared";
-import { getRoutes } from "@/shared/utils";
+import { getRoutes, withFullName } from "@/shared/utils";
 
-import { withFullName } from "../utils";
 import { IconedText } from "./iconed-text";
 
 type PlanCardProps = {

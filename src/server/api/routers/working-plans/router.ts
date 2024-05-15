@@ -49,6 +49,10 @@ export const workingPlansRouter = createTRPCRouter({
             },
           ],
         },
+        name: {
+          contains: query,
+          mode: "insensitive",
+        },
       },
     });
 

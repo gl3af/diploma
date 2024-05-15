@@ -1,4 +1,4 @@
-import { cn } from "@/shared/utils";
+import { cn, withFullName } from "@/shared/utils";
 import {
   FormControl,
   FormItem,
@@ -15,7 +15,6 @@ import {
 import { api } from "@/trpc/react";
 
 import { ComponentsProps } from "./type";
-import { withFullName } from "../../../utils";
 
 export function UserSelect({ field, fieldState }: ComponentsProps<"userId">) {
   const { data: basicUsers = [], isLoading } = api.users.getAllBasic.useQuery();
