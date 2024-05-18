@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerAuthSession();
 
   return (
-    <Box as="html" lang="en">
+    <Box as="html" lang="en" suppressHydrationWarning>
       <Box as="body" className={cn("min-h-screen bg-background antialiased", montserrat.className)}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <ThemeProvider

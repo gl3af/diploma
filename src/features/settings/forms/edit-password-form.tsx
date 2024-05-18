@@ -2,8 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRef } from "react";
 
-import { useToast } from "@/shared/hooks";
 import { cn } from "@/shared/utils";
 import {
   Form,
@@ -16,39 +17,36 @@ import {
   Button,
   Box,
   Loader,
+  DialogClose,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
-import { authSchema } from "../schema";
-
-import type * as z from "zod";
-
-export function SignUpForm() {
-  const form = useForm<z.infer<typeof authSchema>>({
-    resolver: zodResolver(authSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+const schema = z
+  .object({
+    newPassword: z.string().min(8),
+    newPasswordConfirmation: z.string().min(8, { message: "Минимальная длна пароля - 8 символов" }),
+  })
+  .refine(({ newPassword, newPasswordConfirmation }) => newPassword === newPasswordConfirmation, {
+    message: "Пароли не совпадают",
+    path: ["newPasswordConfirmation"],
   });
-  const { toast } = useToast();
-  const { mutateAsync, isLoading } = api.auth.register.useMutation();
 
-  const onSubmit = async (values: z.infer<typeof authSchema>) => {
-    const { email, password } = values;
-    await mutateAsync(
-      { email, password },
-      {
-        onError: (e) => form.setError("email", { message: e.message }),
-        onSuccess: (data) => {
-          toast({
-            title: "Успешно",
-            description: data.message,
-          });
-          form.reset();
-        },
-      }
-    );
+type Schema = z.infer<typeof schema>;
+
+export function EditPasswordForm() {
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const form = useForm<Schema>({
+    resolver: zodResolver(schema),
+  });
+  const { mutateAsync, isLoading } = api.auth.editPassword.useMutation();
+
+  const onSubmit = async (values: Schema) => {
+    mutateAsync(values, {
+      onSuccess: () => {
+        buttonRef.current?.click();
+      },
+    });
   };
 
   return (
@@ -56,16 +54,16 @@ export function SignUpForm() {
       <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="email"
+          name="newPassword"
           render={({ field, fieldState: { error } }) => (
             <FormItem className="flex flex-col gap-2 space-y-0">
               <FormLabel className="text-md text-left font-medium">
-                Почта <span className="text-red-600">*</span>
+                Пароль <span className="text-red-600">*</span>
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="example@gmail.com"
+                  type="password"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
                     error && "ring-2 ring-red-500 focus-visible:ring-red-500"
@@ -78,17 +76,16 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="newPasswordConfirmation"
           render={({ field, fieldState: { error } }) => (
             <FormItem className="flex flex-col gap-2 space-y-0">
               <FormLabel className="text-md text-left font-medium">
-                Пароль <span className="text-red-600">*</span>
+                Пароль еще раз <span className="text-red-600">*</span>
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="password"
-                  placeholder="Пароль"
                   className={cn(
                     "text-md font-medium placeholder:text-sm",
                     error && "ring-2 ring-red-500 focus-visible:ring-red-500"
@@ -100,8 +97,9 @@ export function SignUpForm() {
           )}
         />
         <Button type="submit" className="w-full text-white sm:w-fit" disabled={isLoading}>
-          {isLoading ? <Loader /> : "Зарегистрироваться"}
+          {isLoading ? <Loader /> : "Изменить"}
         </Button>
+        <DialogClose ref={buttonRef} className="hidden" />
       </Box>
     </Form>
   );

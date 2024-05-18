@@ -6,11 +6,9 @@ import { usePathname } from "next/navigation";
 import { Box, Text } from "@/shared/ui";
 import { cn, TRoute } from "@/shared/utils";
 
-type RouteProps = Omit<TRoute, "roles"> & {
-  displayLabels: boolean;
-};
+type RouteProps = Omit<TRoute, "roles">;
 
-export function Route({ href, label, icon, displayLabels }: RouteProps) {
+export function Route({ href, label, icon }: RouteProps) {
   const pathname = usePathname();
 
   return (
@@ -26,7 +24,6 @@ export function Route({ href, label, icon, displayLabels }: RouteProps) {
       <Text className="text-md hidden font-semibold text-muted-foreground transition-all ease-linear group-hover:text-foreground lg:block">
         {label}
       </Text>
-      {displayLabels && <Text className="text-md font-semibold">{label}</Text>}
     </Link>
   );
 }

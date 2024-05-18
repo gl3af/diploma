@@ -16,3 +16,13 @@ export const $RegistrationSchema = z.object({
   sex: z.literal("Мужской").or(z.literal("Женский")),
   education: z.string({ required_error: "Обязательное поле" }),
 });
+
+export const $EditProfileSchema = $RegistrationSchema;
+
+export const $EditEmailSchema = z.object({
+  email: z.string().email(),
+});
+
+export const $EditPasswordSchema = z.object({
+  newPassword: z.string().min(8),
+});

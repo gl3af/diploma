@@ -1,6 +1,6 @@
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 
-import { Content } from "@/layouts";
+import { AdminContent } from "@/layouts";
 import { Box } from "@/shared/ui";
 import { getRoutes, getQueryClient, getQueryKey } from "@/shared/utils";
 import { api } from "@/trpc/server";
@@ -22,7 +22,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Search
   const { label, icon } = users;
 
   return (
-    <Content title={label} icon={icon} requiresAuth>
+    <AdminContent title={label} icon={icon}>
       <Box className="grid gap-6">
         <UsersHeader />
         <UsersFilter />
@@ -30,6 +30,6 @@ export default async function UsersPage({ searchParams }: { searchParams: Search
           <UsersList />
         </Hydrate>
       </Box>
-    </Content>
+    </AdminContent>
   );
 }

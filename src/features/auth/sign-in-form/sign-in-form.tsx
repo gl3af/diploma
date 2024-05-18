@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import {
   Box,
@@ -15,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Loader,
 } from "@/shared/ui";
 import { cn } from "@/shared/utils";
 
@@ -23,6 +25,7 @@ import { authSchema } from "../schema";
 import type * as z from "zod";
 
 export function SignInForm() {
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -35,6 +38,8 @@ export function SignInForm() {
   const onSubmit = async (values: z.infer<typeof authSchema>) => {
     const { email, password } = values;
 
+    setLoading(true);
+
     const result = await signIn("credentials", {
       email,
       password,
@@ -45,6 +50,8 @@ export function SignInForm() {
       router.push("/home");
       return;
     }
+
+    setLoading(false);
 
     const error = result?.error?.split(":");
     const field = error?.at(0);
@@ -103,8 +110,8 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full text-white sm:w-fit">
-          Войти
+        <Button type="submit" className="w-full text-white sm:w-fit" disabled={loading}>
+          {loading ? <Loader /> : "Войти"}
         </Button>
       </Box>
     </Form>

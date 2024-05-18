@@ -8,7 +8,7 @@ export default async function RegistrationPage() {
   const userData = await api.auth.getProfile.query();
 
   if (!!userData && userData.registrationCompleted) redirect("/home");
-  if (!!userData && !userData.verified) redirect("/verification");
+  if (!!userData && userData.registrationCompleted && !userData.verified) redirect("/verification");
 
   return (
     <Container className="min-h-screen">

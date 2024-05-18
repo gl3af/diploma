@@ -16,7 +16,8 @@ export default async function VerificationPage() {
           Верификация
         </Title>
         <Text className="font-xl text-center font-medium">
-          Ваши данные находятся на проверке у администратора. Ожидайте результата
+          Ваши данные находятся на проверке у администратора. Ожидайте результата, после чего
+          обновите страницу
         </Text>
         <Loader size={56} />
       </Box>
