@@ -3,16 +3,9 @@
 import { ThemeCard } from "@/features/directory";
 import { Accordion, Loader } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { type RouterOutputs } from "@/trpc/shared";
 
-type InitialData = {
-  initialData: RouterOutputs["directory"]["getThemes"];
-};
-
-export function ThemesList({ initialData }: InitialData) {
-  const { data: themes = [], isFetching } = api.directory.getThemes.useQuery(undefined, {
-    initialData,
-  });
+export function ThemesList() {
+  const { data: themes = [], isFetching } = api.directory.getThemes.useQuery();
 
   if (isFetching) return <Loader size={56} />;
 

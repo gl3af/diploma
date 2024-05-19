@@ -4,7 +4,7 @@ export const $CreateArticleSchema = z.object({
   name: z.string(),
   shortContent: z.string(),
   content: z.string(),
-  themeId: z.string(),
+  themeId: z.number(),
 });
 
 export const $GetArticleSchema = z.object({

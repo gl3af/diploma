@@ -14,6 +14,8 @@ import {
   FormMessage,
   Input,
   Button,
+  Box,
+  Loader,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
@@ -30,7 +32,7 @@ export function SignUpForm() {
     },
   });
   const { toast } = useToast();
-  const { mutateAsync } = api.auth.register.useMutation();
+  const { mutateAsync, isLoading } = api.auth.register.useMutation();
 
   const onSubmit = async (values: z.infer<typeof authSchema>) => {
     const { email, password } = values;
@@ -51,7 +53,7 @@ export function SignUpForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <Box as="form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -97,10 +99,10 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full text-white sm:w-fit">
-          Войти
+        <Button type="submit" className="w-full text-white sm:w-fit" disabled={isLoading}>
+          {isLoading ? <Loader /> : "Зарегистрироваться"}
         </Button>
-      </form>
+      </Box>
     </Form>
   );
 }

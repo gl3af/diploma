@@ -15,7 +15,7 @@ import {
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
-export function DeleteThemeModal({ themeId }: { themeId: string }) {
+export function DeleteThemeModal({ themeId }: { themeId: number }) {
   const utils = api.useUtils();
   const ref = useRef<HTMLButtonElement | null>(null);
 

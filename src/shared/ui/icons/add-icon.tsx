@@ -15,7 +15,7 @@ export const AddIcon = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <PlusCircle className="cursor-pointer transition-all hover:text-green-400" />
+        <PlusCircle className="cursor-pointer transition-opacity hover:opacity-70" />
       </Comp>
     );
   }

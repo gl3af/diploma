@@ -39,7 +39,7 @@ export function EditArticleForm({ article }: CreateArticleFormProps) {
     resolver: zodResolver($ArticleSchema),
     defaultValues: {
       name: article.name,
-      shortContent: article.shortContent,
+      shortContent: article.shortContent ?? "",
       content: article.content,
     },
   });

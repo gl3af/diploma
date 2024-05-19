@@ -1,15 +1,28 @@
-import { AuthDialog } from "@/widgets/auth";
-import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
 
-export default async function Home() {
-  const session = await getServerAuthSession();
+import { AuthDialog } from "@/widgets/auth";
+import { api } from "@/trpc/server";
+import { Box, Title, Text } from "@/shared/ui";
+
+export default async function MainPage() {
+  const userData = await api.auth.getProfile.query();
+
+  if (!!userData && !userData.registrationCompleted) redirect("/registration");
+  if (!!userData && !userData.verified) redirect("/verification");
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-5xl font-bold">
-        {session ? "Привет Диплом (auth)" : "Привет Диплом"}
-      </h1>
-      <AuthDialog session={session} />
-    </main>
+    <Box
+      as="main"
+      className="md:max-w-1/2 flex min-h-screen flex-col items-center justify-center gap-6 px-6"
+    >
+      <Title
+        order={1}
+        className="to-danger bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-center text-4xl font-extrabold text-transparent sm:text-5xl"
+      >
+        Портал молодых специалистов
+      </Title>
+      <Text className="text-2xl font-semibold sm:text-3xl">КАЗ им. С.П. Горбунова</Text>
+      <AuthDialog />
+    </Box>
   );
 }

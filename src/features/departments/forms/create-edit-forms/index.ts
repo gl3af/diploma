@@ -1,2 +1,2 @@
-export * from "./create-form";
-export * from "./edit-form";
+export * from "./create-department-form";
+export * from "./edit-department-form";

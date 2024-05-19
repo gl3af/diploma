@@ -4,32 +4,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Box, Text } from "@/shared/ui";
-import { cn } from "@/shared/utils";
+import { cn, TRoute } from "@/shared/utils";
 
-export type TRoute = {
-  label: string;
-  href: string;
-  icon: React.ReactNode;
-};
+type RouteProps = Omit<TRoute, "roles">;
 
-export function Route(props: TRoute & {
-    displayLabels: boolean;
-  }) {
+export function Route({ href, label, icon }: RouteProps) {
   const pathname = usePathname();
 
-  const { href, label, icon, displayLabels } = props;
   return (
-    <Link href={href} className="group flex items-center gap-4" title={label} passHref>
+    <Link href={href} className="group flex items-center gap-4" title={label}>
       <Box
         className={cn(
-          "rounded-full p-3 group-hover:bg-secondary",
+          "rounded-full p-3 transition-all ease-linear group-hover:bg-secondary",
           pathname.includes(href) && "bg-secondary"
         )}
       >
         {icon}
       </Box>
-      <Text className="text-md hidden font-semibold lg:block">{label}</Text>
-      {displayLabels && <Text className="text-md font-semibold">{label}</Text>}
+      <Text className="text-md hidden font-semibold text-muted-foreground transition-all ease-linear group-hover:text-foreground lg:block">
+        {label}
+      </Text>
     </Link>
   );
 }
