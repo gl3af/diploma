@@ -14,10 +14,13 @@ export function TaskCard({ task }: TaskCardProps) {
     workingPlans: { href },
   } = getRoutes();
 
-  const { id, deadline, description, name, planId } = task;
+  const { id, deadline, description, name, planId, completed } = task;
 
   const isDeadlineExpired = deadline < new Date();
   const link = `${href}/${planId}/${id}`;
+
+  const tagVariant = completed ? "default" : "outline";
+  const tagText = completed ? "Выполнена" : "Не выполнена";
 
   return (
     <Link href={link} className="transition-opacity hover:opacity-90">
@@ -30,6 +33,9 @@ export function TaskCard({ task }: TaskCardProps) {
             </Badge>
             <Badge className="w-fit" variant={isDeadlineExpired ? "destructive" : "secondary"}>
               {formatDistance(deadline, new Date(), { locale: ru })}
+            </Badge>
+            <Badge className=" w-fit" variant={tagVariant}>
+              {tagText}
             </Badge>
           </Box>
         </CardHeader>

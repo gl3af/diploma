@@ -54,7 +54,7 @@ export function EditTaskForm() {
       isLoading={isLoading}
       buttonContent="Изменить задачу"
       buttonRef={ref}
-      maxDate={task?.deadline ?? new Date()}
+      maxDate={task?.parent?.deadline ?? task?.plan?.deadline ?? new Date()}
     />
   );
 }

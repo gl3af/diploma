@@ -5,12 +5,16 @@ import { Box, NotFoundContent } from "@/shared/ui";
 import { getRoutes, getQueryClient, getQueryKey } from "@/shared/utils";
 import { api } from "@/trpc/server";
 import { PlanContent, PlanHeader } from "@/widgets/working-plans";
+import { getServerAuthSession } from "@/server/auth";
 
 type Params = {
   id: string;
 };
 
 export default async function WorkingPlanPage({ params }: { params: Params }) {
+  const session = await getServerAuthSession();
+  const isAdmin = session?.user.role === "admin";
+
   const id = Number(params.id);
   if (Number.isNaN(id)) return <NotFoundContent />;
 
@@ -20,7 +24,10 @@ export default async function WorkingPlanPage({ params }: { params: Params }) {
   const queryKey = getQueryKey(["workingPlans", "getSingle"], input);
 
   const plan = await api.workingPlans.getSingle.query(input);
-  if (!plan) return <NotFoundContent />;
+
+  const notCurrentUserPlan = !isAdmin && plan?.userId !== session?.user.id;
+
+  if (!plan || notCurrentUserPlan) return <NotFoundContent />;
 
   await queryClient.setQueryData(queryKey, plan);
 

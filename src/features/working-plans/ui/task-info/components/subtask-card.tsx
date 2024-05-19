@@ -14,22 +14,28 @@ export function SubtaskCard({ subtask }: TaskCardProps) {
     workingPlans: { href },
   } = getRoutes();
 
-  const { id, deadline, description, name, planId } = subtask;
+  const { id, deadline, description, name, planId, completed } = subtask;
 
   const isDeadlineExpired = deadline < new Date();
   const link = `${href}/${planId}/${id}`;
+
+  const tagVariant = completed ? "default" : "outline";
+  const tagText = completed ? "Выполнена" : "Не выполнена";
 
   return (
     <Link href={link} className="transition-opacity hover:opacity-90">
       <Card className="rounded-xl">
         <CardHeader>
           <Box className="flex flex-wrap items-center gap-2">
-            <Badge className="w-fit underline">{id}</Badge>
+            <Badge className="w-fit">{id}</Badge>
             <Badge className="w-fit" variant="secondary">
               {format(deadline, "dd.MM.yyyy")}
             </Badge>
             <Badge className="w-fit" variant={isDeadlineExpired ? "destructive" : "secondary"}>
               {formatDistance(deadline, new Date(), { locale: ru })}
+            </Badge>
+            <Badge className=" w-fit" variant={tagVariant}>
+              {tagText}
             </Badge>
           </Box>
         </CardHeader>

@@ -7,9 +7,7 @@ import { EditEmailModal, EditPasswordModal } from "@/features/settings";
 import { BlockWrapper } from "./block-wrapper";
 
 export function AccountBlock() {
-  const { data: userData } = api.auth.getProfile.useQuery(undefined, {
-    suspense: true,
-  });
+  const { data: userData } = api.auth.getProfile.useQuery(undefined);
   if (!userData) return null;
 
   const { email } = userData;

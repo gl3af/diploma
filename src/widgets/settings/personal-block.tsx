@@ -18,9 +18,7 @@ function Point({ title, value }: { title: string; value: unknown }) {
 }
 
 export function PersonalBlock() {
-  const { data: user } = api.auth.getProfile.useQuery(undefined, {
-    suspense: true,
-  });
+  const { data: user } = api.auth.getProfile.useQuery(undefined);
   if (!user) return null;
 
   const { age, education, middlename, name, sex, surname } = user;

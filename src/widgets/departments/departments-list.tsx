@@ -1,18 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-
 import { api } from "@/trpc/react";
-import { Box, Loader } from "@/shared/ui";
+import { Box } from "@/shared/ui";
 import { DepartmentCard } from "@/features/departments";
 
-export function DepartmentsList() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query") ?? "";
-
-  const { data: departments, isFetching } = api.departments.getAll.useQuery({ query });
-
-  if (isFetching) return <Loader size={56} />;
+export function DepartmentsList({ query }: { query?: string | null }) {
+  const { data: departments } = api.departments.getAll.useQuery({ query: query ?? "" });
 
   return (
     <Box as="section" className="grid gap-4">

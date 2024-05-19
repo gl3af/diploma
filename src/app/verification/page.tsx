@@ -6,6 +6,8 @@ import { api } from "@/trpc/server";
 export default async function VerificationPage() {
   const userData = await api.auth.getProfile.query();
 
+  if (!userData) redirect("/");
+
   if (!!userData && !userData.registrationCompleted) redirect("/registration");
   if (!!userData && userData.verified) redirect("/home");
 

@@ -5,6 +5,7 @@ import {
   $CreateSubtaskSchema,
   $UpdateSchema,
   $DeleteSchema,
+  $ToggleSchema,
 } from "./schemas";
 
 export const tasksRouter = createTRPCRouter({
@@ -69,27 +70,17 @@ export const tasksRouter = createTRPCRouter({
       },
     });
   }),
-  // update: protectedProcedure.input($EditSchema).mutation(async ({ ctx, input }) => {
-  //   const { db } = ctx;
-  //   const { id, ...data } = input;
+  toggleCompleted: protectedProcedure.input($ToggleSchema).mutation(async ({ ctx, input }) => {
+    const { db } = ctx;
+    const { completed, id } = input;
 
-  //   return db.workingPlan.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: {
-  //       ...data,
-  //     },
-  //   });
-  // }),
-  // delete: protectedProcedure.input($DeleteSchema).mutation(async ({ ctx, input }) => {
-  //   const { db } = ctx;
-  //   const { id } = input;
-
-  //   return db.workingPlan.delete({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  // }),
+    return db.task.update({
+      where: {
+        id,
+      },
+      data: {
+        completed,
+      },
+    });
+  }),
 });

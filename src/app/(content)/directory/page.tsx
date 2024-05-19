@@ -1,12 +1,22 @@
+import { Suspense } from "react";
+
 import { Content } from "@/layouts";
-import { Box } from "@/shared/ui";
-import { api } from "@/trpc/server";
+import { Box, Skeleton } from "@/shared/ui";
 import { DirectoryHeader, ThemesList } from "@/widgets/directory";
 import { getRoutes } from "@/shared/utils";
 
-export default async function DirectoryPage() {
-  const themes = await api.directory.getThemes.query();
+function ThemesListFallback() {
+  return (
+    <Box className="grid gap-4">
+      {[...new Array(3).fill(0)].map((item, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Skeleton key={item + index} className="h-16" />
+      ))}
+    </Box>
+  );
+}
 
+export default async function DirectoryPage() {
   const { directory } = getRoutes(32);
   const { label, icon } = directory;
 
@@ -14,7 +24,9 @@ export default async function DirectoryPage() {
     <Content title={label} icon={icon} requiresAuth>
       <Box className="grid gap-6">
         <DirectoryHeader />
-        <ThemesList initialData={themes} />
+        <Suspense fallback={<ThemesListFallback />}>
+          <ThemesList />
+        </Suspense>
       </Box>
     </Content>
   );

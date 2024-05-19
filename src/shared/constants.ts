@@ -8,6 +8,7 @@ export const queryClientInstance = new QueryClient({
       staleTime: 30000,
       refetchOnMount: true,
       refetchOnWindowFocus: false,
+      suspense: true,
     },
   },
 });

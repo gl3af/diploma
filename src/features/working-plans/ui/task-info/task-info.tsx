@@ -10,11 +10,22 @@ type TaskInfoProps = {
 export function TaskInfo({ task }: TaskInfoProps) {
   if (!task) return null;
 
-  const { name, description, createdAt, deadline, updatedAt, subtasks, parent, plan } = task;
+  const {
+    name,
+    description,
+    createdAt,
+    deadline,
+    updatedAt,
+    subtasks,
+    parent,
+    plan,
+    completed,
+    id,
+  } = task;
 
   return (
     <Box className="grid gap-4">
-      <InfoHeader name={name} description={description} />
+      <InfoHeader name={name} description={description} completed={completed} id={id} />
       <InfoMeta
         createdAt={createdAt}
         updatedAt={updatedAt}

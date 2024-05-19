@@ -1,23 +1,27 @@
-import { Hydrate, dehydrate } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 import { Content } from "@/layouts";
-import { Box } from "@/shared/ui";
-import { api } from "@/trpc/server";
+import { Box, Skeleton } from "@/shared/ui";
 import { DepartmentsHeader, DepartmentsList, DepartmentsSearch } from "@/widgets/departments";
-import { getQueryClient, getQueryKey, getRoutes } from "@/shared/utils";
+import { getRoutes } from "@/shared/utils";
 
 type SearchParams = {
-  query: string | null;
+  query?: string;
 };
 
-export default async function DepartmentsPage({ searchParams }: { searchParams?: SearchParams }) {
-  const queryClient = getQueryClient();
-  const query = searchParams?.query;
+function DepartmentsListFallback() {
+  return (
+    <Box className="grid gap-4">
+      {[...new Array(3).fill(0)].map((item, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Skeleton key={item + index} className="h-32" />
+      ))}
+    </Box>
+  );
+}
 
-  const input = { query: query ?? "" };
-
-  const queryKey = getQueryKey(["departments", "getAll"], input);
-  await queryClient.prefetchQuery(queryKey, () => api.departments.getAll.query(input));
+export default async function DepartmentsPage({ searchParams }: { searchParams: SearchParams }) {
+  const { query } = searchParams;
 
   const { departments } = getRoutes(32);
   const { label, icon } = departments;
@@ -27,9 +31,9 @@ export default async function DepartmentsPage({ searchParams }: { searchParams?:
       <Box className="grid gap-6">
         <DepartmentsHeader />
         <DepartmentsSearch />
-        <Hydrate state={dehydrate(queryClient)}>
-          <DepartmentsList />
-        </Hydrate>
+        <Suspense fallback={<DepartmentsListFallback />}>
+          <DepartmentsList query={query} />
+        </Suspense>
       </Box>
     </Content>
   );

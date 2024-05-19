@@ -1,18 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-
 import { PlanCard } from "@/features/working-plans";
-import { Box, Loader, Text } from "@/shared/ui";
+import { Box, Text } from "@/shared/ui";
 import { api } from "@/trpc/react";
 
-export function PlansList() {
-  const searchParams = useSearchParams();
-
-  const query = searchParams.get("query");
-  const { data: plans = [], isFetching } = api.workingPlans.getAll.useQuery({ query });
-
-  if (isFetching) return <Loader size={40} />;
+export function PlansList({ query }: { query?: string | null }) {
+  const { data: plans = [] } = api.workingPlans.getAll.useQuery({ query });
 
   if (!plans.length) return <Text>Здесь ничего нет</Text>;
 

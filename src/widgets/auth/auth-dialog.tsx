@@ -1,10 +1,11 @@
 "use client";
 
-import { type Session } from "next-auth";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 import { SignInForm, SignUpForm } from "@/features/auth";
 import {
+  Box,
   Button,
   Dialog,
   DialogContent,
@@ -15,16 +16,22 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Text,
 } from "@/shared/ui";
 
-export function AuthDialog({ session }: { session: Session | null }) {
+export function AuthDialog() {
+  const { data: session } = useSession();
+
   if (session) {
     return (
-      <Button variant="outline" size="lg" className="rounded-xl text-lg" asChild>
-        <Link href="/home">Войти</Link>
-      </Button>
+      <Box className="space-y-2">
+        <Button variant="outline" size="lg" className="rounded-xl text-lg" asChild>
+          <Link href="/home">Войти</Link>
+        </Button>
+        <Text className="font-medium">Вход выполнен</Text>
+      </Box>
     );
-}
+  }
 
   return (
     <Dialog>

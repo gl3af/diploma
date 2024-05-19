@@ -7,6 +7,8 @@ import { Registration } from "@/widgets/auth";
 export default async function RegistrationPage() {
   const userData = await api.auth.getProfile.query();
 
+  if (!userData) redirect("/");
+
   if (!!userData && userData.registrationCompleted) redirect("/home");
   if (!!userData && userData.registrationCompleted && !userData.verified) redirect("/verification");
 

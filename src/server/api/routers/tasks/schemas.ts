@@ -37,3 +37,7 @@ export const $GetSingleSchema = z.object({
 export const $DeleteSchema = z.object({
   id: z.number(),
 });
+
+export const $ToggleSchema = $DeleteSchema.extend({
+  completed: z.boolean(),
+});
