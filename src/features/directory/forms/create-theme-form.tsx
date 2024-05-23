@@ -20,7 +20,6 @@ import {
   Box,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { useToast } from "@/shared/hooks";
 
 import { $CreateThemeSchema } from "./validation";
 
@@ -34,8 +33,6 @@ export function CreateThemeForm() {
     },
   });
 
-  const { toast } = useToast();
-
   const ref = useRef<HTMLButtonElement | null>(null);
   const utils = api.useUtils();
   const { mutateAsync: create, isLoading } = api.directory.createTheme.useMutation();
@@ -44,15 +41,9 @@ export function CreateThemeForm() {
     await create(values, {
       onSuccess: () => {
         utils.directory.getThemes.invalidate();
-        form.reset();
         ref?.current?.click();
       },
-      onError: () =>
-        toast({
-          title: "Ошибка добавления",
-          description: "Данная тема уже существует",
-          variant: "destructive",
-        }),
+      onError: () => form.setError("name", { message: "Данная тема уже существует" }),
     });
   };
 
