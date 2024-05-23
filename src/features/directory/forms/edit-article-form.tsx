@@ -56,7 +56,7 @@ export function EditArticleForm({ article }: CreateArticleFormProps) {
         onSuccess: () => {
           utils.articles.getArticle
             .invalidate()
-            .then(() => router.push(`/admin/directory/${article.id}`));
+            .then(() => router.push(`/directory/${article.id}`));
         },
         onError: () =>
           toast({

@@ -5,9 +5,9 @@ import Link from "next/link";
 
 import { Box, Button } from "@/shared/ui";
 
-import { DeleteThemeModal } from "../modals";
+import { DeleteThemeModal, EditThemeModal } from "../modals";
 
-export function ThemeActions({ themeId }: { themeId: number }) {
+export function ThemeActions({ themeId, name }: { themeId: number; name: string }) {
   const { data } = useSession();
   if (data?.user.role !== "admin") return null;
 
@@ -16,6 +16,7 @@ export function ThemeActions({ themeId }: { themeId: number }) {
       <Link href={`./directory/create?themeId=${themeId}`} passHref>
         <Button size="sm">Добавить статью</Button>
       </Link>
+      <EditThemeModal id={themeId} name={name} />
       <DeleteThemeModal themeId={themeId} />
     </Box>
   );

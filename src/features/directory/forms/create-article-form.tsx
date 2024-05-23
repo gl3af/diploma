@@ -55,7 +55,7 @@ export function CreateArticleForm() {
       { ...values, themeId },
       {
         onSuccess: () => {
-          utils.directory.getThemes.invalidate().then(() => router.push("/admin/directory"));
+          utils.directory.getThemes.invalidate().then(() => router.push("/directory"));
         },
         onError: () =>
           toast({

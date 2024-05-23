@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
-import { $CreateThemeSchema, $DeleteThemeSchema } from "./schemas";
+import { $CreateThemeSchema, $DeleteThemeSchema, $EditThemeSchema } from "./schemas";
 
 export const directoryRouter = createTRPCRouter({
   getThemes: protectedProcedure.query(async ({ ctx }) => {
@@ -24,6 +24,16 @@ export const directoryRouter = createTRPCRouter({
       data: {
         name: input.name,
         articles: {},
+      },
+    })
+  ),
+  editTheme: protectedProcedure.input($EditThemeSchema).mutation(async ({ input, ctx }) =>
+    ctx.db.theme.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        name: input.name,
       },
     })
   ),
