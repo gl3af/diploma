@@ -25,7 +25,6 @@ const schema = z
   .object({
     newPassword: z
       .string({ required_error: "Обязательное поле" })
-      .min(8)
       .min(8, { message: "Минимальная длина пароля - 8 символов" }),
     newPasswordConfirmation: z
       .string({ required_error: "Обязательное поле" })
