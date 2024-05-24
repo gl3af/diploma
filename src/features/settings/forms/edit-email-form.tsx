@@ -22,7 +22,11 @@ import {
 import { api } from "@/trpc/react";
 
 const schema = z.object({
-  email: z.string({ required_error: "Обязательное поле" }).email(),
+  email: z
+    .string({ required_error: "Обязательное поле" })
+    .trim()
+    .min(1, { message: "Обязательное поле" })
+    .email({ message: "Неверный формат почты" }),
 });
 
 type Schema = z.infer<typeof schema>;
@@ -45,6 +49,7 @@ export function EditEmailForm({ email }: { email: string }) {
         utils.auth.getProfile.invalidate();
         buttonRef.current?.click();
       },
+      onError: () => form.setError("email", { message: "Данная почта занята" }),
     });
   };
 
