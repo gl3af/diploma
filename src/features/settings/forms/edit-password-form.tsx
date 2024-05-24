@@ -23,9 +23,12 @@ import { api } from "@/trpc/react";
 
 const schema = z
   .object({
-    newPassword: z.string().min(8).min(8, { message: "Минимальная длина пароля - 8 символов" }),
+    newPassword: z
+      .string({ required_error: "Обязательное поле" })
+      .min(8)
+      .min(8, { message: "Минимальная длина пароля - 8 символов" }),
     newPasswordConfirmation: z
-      .string()
+      .string({ required_error: "Обязательное поле" })
       .min(8, { message: "Минимальная длина пароля - 8 символов" }),
   })
   .refine(({ newPassword, newPasswordConfirmation }) => newPassword === newPasswordConfirmation, {
