@@ -21,7 +21,6 @@ import {
   Editor,
 } from "@/shared/ui";
 import { api } from "@/trpc/react";
-import { useToast } from "@/shared/hooks";
 
 import { $ArticleSchema } from "./validation";
 
@@ -40,8 +39,6 @@ export function CreateArticleForm() {
     },
   });
 
-  const { toast } = useToast();
-
   const utils = api.useUtils();
   const { mutateAsync: create, isLoading } = api.articles.createArticle.useMutation();
 
@@ -57,12 +54,7 @@ export function CreateArticleForm() {
         onSuccess: () => {
           utils.directory.getThemes.invalidate().then(() => router.push("/directory"));
         },
-        onError: () =>
-          toast({
-            title: "Ошибка добавления",
-            description: "Данная статья уже существует",
-            variant: "destructive",
-          }),
+        onError: () => form.setError("name", { message: "Данная статья уже существует" }),
       }
     );
   };
