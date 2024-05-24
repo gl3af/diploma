@@ -27,32 +27,38 @@ export const workingPlansRouter = createTRPCRouter({
         },
       },
       where: {
-        user: {
-          OR: [
-            {
-              name: {
-                contains: query,
-                mode: "insensitive",
-              },
+        OR: [
+          {
+            user: {
+              OR: [
+                {
+                  name: {
+                    contains: query,
+                    mode: "insensitive",
+                  },
+                },
+                {
+                  surname: {
+                    contains: query,
+                    mode: "insensitive",
+                  },
+                },
+                {
+                  middlename: {
+                    contains: query,
+                    mode: "insensitive",
+                  },
+                },
+              ],
             },
-            {
-              surname: {
-                contains: query,
-                mode: "insensitive",
-              },
+          },
+          {
+            name: {
+              contains: query,
+              mode: "insensitive",
             },
-            {
-              middlename: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-          ],
-        },
-        name: {
-          contains: query,
-          mode: "insensitive",
-        },
+          },
+        ],
       },
     });
 
