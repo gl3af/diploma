@@ -23,8 +23,10 @@ import { api } from "@/trpc/react";
 
 const schema = z
   .object({
-    newPassword: z.string().min(8),
-    newPasswordConfirmation: z.string().min(8, { message: "Минимальная длна пароля - 8 символов" }),
+    newPassword: z.string().min(8).min(8, { message: "Минимальная длина пароля - 8 символов" }),
+    newPasswordConfirmation: z
+      .string()
+      .min(8, { message: "Минимальная длина пароля - 8 символов" }),
   })
   .refine(({ newPassword, newPasswordConfirmation }) => newPassword === newPasswordConfirmation, {
     message: "Пароли не совпадают",
