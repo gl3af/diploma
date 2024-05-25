@@ -10,7 +10,7 @@ type SearchParams = {
 
 export default function CreateArticlePage({ searchParams }: { searchParams?: SearchParams }) {
   const themeId = searchParams?.themeId;
-  if (!themeId) redirect("/admin/directory");
+  if (!themeId) redirect("/directory");
 
   const { directory } = getRoutes(32);
   const { label, icon } = directory;
