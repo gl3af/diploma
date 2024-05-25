@@ -13,7 +13,7 @@ type ContentProps = {
 
 export async function Content({ title, icon, children, requiresAuth = false }: ContentProps) {
   const session = await getServerAuthSession();
-  if (!session && requiresAuth) redirect("/home");
+  if (!session && requiresAuth) redirect("/");
 
   const userData = await api.auth.getProfile.query();
 

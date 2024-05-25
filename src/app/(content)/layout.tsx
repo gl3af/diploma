@@ -9,6 +9,8 @@ import { Sidebar } from "@/widgets/sidebar";
 export default async function ContentLayout({ children }: { children: React.ReactNode }) {
   const userData = await api.auth.getProfile.query();
 
+  if (!userData) redirect("/");
+
   if (!!userData && !userData.registrationCompleted) redirect("/registration");
   if (!!userData && !userData.verified) redirect("/verification");
 
