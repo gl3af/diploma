@@ -59,9 +59,9 @@ model Worker {
 model Article {
     id Int @id @default(autoincrement())
 
-    name         String  @unique
-    shortContent String? @db.Text()
-    content      String  @db.Text()
+    name         String @unique
+    shortContent String @db.Text()
+    content      String @db.Text()
 
     theme   Theme @relation(fields: [themeId], references: [id], onDelete: Cascade)
     themeId Int
@@ -104,7 +104,7 @@ model WorkingPlan {
     id Int @id @default(autoincrement())
 
     name        String
-    description String?
+    description String
     deadline    DateTime
 
     user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
